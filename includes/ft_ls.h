@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:46 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/23 00:04:20 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/23 05:00:15 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,19 @@
 # define FLAG_RV (1 << 4)
 # define FLAG_T (1 << 5)
 
+# define P_FILE 0
+# define P_DIR 1
+
 typedef struct	s_elem
 {
 	char		*path;
 	char		mode[11];
 	size_t		size;
-	size_t		atime;
+	time_t		atime;
 	size_t		nlink;
 	char		*p_name;
 	char		*g_name;
+	char		*r_lnk;
 }				t_elem;
 
 typedef struct	s_env
@@ -68,8 +72,11 @@ void			ft_lstinsert_alphabet(t_list **lst, t_list *new);
 void			pars_arg(t_env *e, int argc, char **argv, int *i);
 int				ls_recup_file_from_arg(t_env *e);
 
-void			ls_type_and_file_right(unsigned long st_mode, char *tab);
+void			ls_type_and_file_right(t_elem *elem, ssize_t st_mode);
+int				ls_loop(t_env *e);
+void			ls_print(t_env *e, t_list *lst, int dir);
 
 void			ls_free_temp(t_list **lst);
+void			ls_free_elem(t_list	**lst);
 
 #endif

@@ -1,40 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_remove_index.c                              :+:      :+:    :+:   */
+/*   ls_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/22 20:30:53 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/23 05:44:01 by ntoniolo         ###   ########.fr       */
+/*   Created: 2017/06/23 04:55:33 by ntoniolo          #+#    #+#             */
+/*   Updated: 2017/06/23 05:00:03 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_list		*ft_lst_remove_index(t_list	**lst, size_t index)
+void		ls_print(t_env *e, t_list *l, int dir)
 {
-	t_list	*past;
-	t_list	*save;
+	t_elem *elem;
+(void)dir;(void)e;
 
-	past = NULL;
-	if (lst == NULL || *lst == NULL)
-		return (NULL);
-	while (*lst && index)
+	ft_printf("\033[31mIfdir :\n\033[0m");
+	while (l)
 	{
-		past = (*lst);
-		lst = &(*lst)->next;
-		index--;
+		elem = l->content;
+		ft_printf("%s %3li %s %s %6li %.12s \033[32m%s\033[0m\n",
+				elem->mode,
+				elem->nlink,
+				elem->p_name,
+				elem->g_name,
+				elem->size,
+				ctime(&(elem->atime)) + 4,
+				elem->path);
+		l = l->next;
 	}
-	if (!index && *lst)
-	{
-		save = *lst;
-		if (!past)
-			*lst = (*lst)->next;
-		else
-			past->next = (*lst)->next;
-		save->next = NULL;
-		return (save);
-	}
-	return (NULL);
 }

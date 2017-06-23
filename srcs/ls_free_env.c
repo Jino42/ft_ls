@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:31:32 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/22 23:38:06 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/23 04:42:49 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,36 @@ void		ls_free_temp(t_list **lst)
 		save = cur->next;
 		if (cur->content)
 			free(cur->content);
+		free(cur);
+		cur = save;
+	}
+	*lst = NULL;
+}
+
+static void	free_elem(t_elem **elem)
+{
+	if (elem)
+	{
+		ft_strdel(&(*elem)->path);
+	}
+}
+
+void		ls_free_elem(t_list **lst)
+{
+	t_list	*save;
+	t_list	*cur;
+
+	if (!lst)
+		return ;
+	cur = *lst;
+	while (cur)
+	{
+		save = cur->next;
+		if (cur->content)
+		{
+			free_elem((t_elem**)&cur->content);
+			ft_memdel(&cur->content);
+		}
 		free(cur);
 		cur = save;
 	}

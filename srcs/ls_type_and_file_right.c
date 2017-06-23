@@ -6,85 +6,100 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:59:16 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/23 00:00:10 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/23 04:49:50 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void right_usr(unsigned long st_mode, char *tab)
+static void right_usr(ssize_t st_mode, char *tab)
 {
-	if ((st_mode & S_IRWXU) == S_IRWXU)
-		*((unsigned int*)&tab[NUM_USR]) = ALL_R;
-	else
-	{
-		if (st_mode & S_IRUSR)
-			tab[NUM_USR + NUM_R] = 'r';
-		if (st_mode & S_IWUSR)
-			tab[NUM_USR + NUM_W] = 'w';
-		if (st_mode & S_IXUSR)
+//	if (S_IRWXU & st_mode)
+//		*((unsigned int*)&tab[NUM_USR]) = ALL_R;
+//	else
+//	{
+		if (S_IXUSR & st_mode)
 			tab[NUM_USR + NUM_X] = 'x';
-	}
-	if (st_mode & S_ISUID)
+		if (S_IWUSR & st_mode)
+			tab[NUM_USR + NUM_W] = 'w';
+		if (S_IRUSR & st_mode)
+			tab[NUM_USR + NUM_R] = 'r';
+//	}
+	if (S_ISUID & st_mode)
 		tab[NUM_USR + NUM_X] = 'S';
 }
 
-static void right_grp(unsigned long st_mode, char *tab)
+static void right_grp(ssize_t st_mode, char *tab)
 {
-	if ((st_mode & S_IRWXG) == S_IRWXG)
-		*((unsigned int*)&tab[NUM_GRP]) = ALL_R;
-	else
-	{
-		if (st_mode & S_IRGRP)
-			tab[NUM_GRP + NUM_R] = 'r';
-		if (st_mode & S_IWGRP)
-			tab[NUM_GRP + NUM_W] = 'w';
-		if (st_mode & S_IXGRP)
+//	if (S_IRWXG & st_mode)
+//		*((unsigned int*)&tab[NUM_GRP]) = ALL_R;
+//	else
+//	{
+		if (S_IXGRP & st_mode)
 			tab[NUM_GRP + NUM_X] = 'x';
-	}
-	if (st_mode & S_ISGID)
+		if (S_IWGRP & st_mode)
+			tab[NUM_GRP + NUM_W] = 'w';
+		if (S_IRGRP & st_mode)
+			tab[NUM_GRP + NUM_R] = 'r';
+//	}
+	if (S_ISGID & st_mode)
 		tab[NUM_GRP + NUM_X] = 'S';
 }
 
-static void right_oth(unsigned long st_mode, char *tab)
+static void right_oth(ssize_t st_mode, char *tab)
 {
-	if ((st_mode & S_IRWXO) == S_IRWXO)
-		*((unsigned int*)&tab[NUM_OTH]) = ALL_R;
-	else
-	{
-		if (st_mode & S_IROTH)
-			tab[NUM_OTH + NUM_R] = 'r';
-		if (st_mode & S_IWOTH)
-			tab[NUM_OTH + NUM_W] = 'w';
-		if (st_mode & S_IXOTH)
+//	if (S_IRWXO & st_mode)
+//		*((unsigned int*)&tab[NUM_OTH]) = ALL_R;
+//	else
+//	{
+		if (S_IXOTH & st_mode)
 			tab[NUM_OTH + NUM_X] = 'x';
-	}
-	if (st_mode & S_ISVTX)
+		if (S_IWOTH & st_mode)
+			tab[NUM_OTH + NUM_W] = 'w';
+		if (S_IROTH & st_mode)
+			tab[NUM_OTH + NUM_R] = 'r';
+//	}
+	if (S_ISVTX & st_mode)
 		tab[NUM_OTH + NUM_X] = 't';
 }
 
-static void	type_of_file(unsigned long st_mode, char *tab)
+/*
+ * #define __S_ISTYPE(mode, mask)  (((mode) & __S_IFMT) == (mask))
+ * ...
+ * #define S_ISREG(mode)    __S_ISTYPE((mode), __S_IFREG)
+*/
+
+static void	type_of_file(ssize_t st_mode, char *tab)
 {
-	if (st_mode & S_IFREG)
+	if ((st_mode & S_IFMT) == S_IFREG)
 		tab[NUM_TYPE] = '-';
-	else if (st_mode & S_IFDIR)
+	else if ((st_mode & S_IFMT) == S_IFDIR)
 		tab[NUM_TYPE] = 'd';
-	else if (st_mode & S_IFLNK)
+	else if ((st_mode & S_IFMT) == S_IFLNK)
 		tab[NUM_TYPE] = 'l';
-	else if (st_mode & S_IFSOCK)
+	else if ((st_mode & S_IFMT) == S_IFSOCK)
 		tab[NUM_TYPE] = 's';
-	else if (st_mode & S_IFBLK)
+	else if ((st_mode & S_IFMT) == S_IFBLK)
 		tab[NUM_TYPE] = 'b';
-	else if (st_mode & S_IFCHR)
+	else if ((st_mode & S_IFMT) == S_IFCHR)
 		tab[NUM_TYPE] = 'c';
-	else if (st_mode & S_IFIFO)
+	else if ((st_mode & S_IFMT) == S_IFIFO)
 		tab[NUM_TYPE] = 'p';
 }
 
-void		ls_type_and_file_right(unsigned long st_mode, char *tab)
+void		ls_type_and_file_right(t_elem *elem, ssize_t st_mode)
 {
-	type_of_file(st_mode, tab);
-	right_usr(st_mode, tab);
-	right_grp(st_mode, tab);
-	right_oth(st_mode, tab);
+	struct stat buff;
+
+	lstat(elem->path, &buff);
+	if ((buff.st_mode & S_IFMT) == S_IFLNK)
+	{
+		ft_printf("OUIIII !\n"); //Readlink ! + add r_lnk
+		elem->mode[NUM_TYPE] = 'l';
+	}
+	else
+		type_of_file(st_mode, elem->mode);
+	right_usr(st_mode, elem->mode);
+	right_grp(st_mode, elem->mode);
+	right_oth(st_mode, elem->mode);
 }
