@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:31:32 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/23 04:42:49 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/24 11:54:00 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void	free_elem(t_elem **elem)
 	if (elem)
 	{
 		ft_strdel(&(*elem)->path);
+		ft_strdel(&(*elem)->g_name);
+		ft_strdel(&(*elem)->p_name);
 	}
 }
 

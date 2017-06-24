@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:46 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/23 05:00:15 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/24 16:19:18 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 # define FT_LS_H
 
 #include "../libft/includes/ft_printf.h"
-#include <sys/types.h>
-#include <dirent.h>
 #include <sys/stat.h> 
-#include <unistd.h>
-#include <errno.h>
-#include <stdio.h>
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
+#include <dirent.h>
 #include <sys/xattr.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <errno.h>
+#include <stdio.h>
 
 # define NUM_TYPE 0
 # define NUM_USR 1
@@ -43,10 +43,17 @@
 # define P_FILE 0
 # define P_DIR 1
 
+typedef struct	s_inf
+{
+	char		*path;
+	size_t		ind_curf;
+}				t_inf;
+
 typedef struct	s_elem
 {
 	char		*path;
 	char		mode[11];
+	size_t		ind_curf;
 	size_t		size;
 	time_t		atime;
 	size_t		nlink;

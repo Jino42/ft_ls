@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:33:18 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/01/19 15:48:06 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/24 14:59:19 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_putbufferchar(char c, t_option *option)
 	option->b++;
 	if (option->b == BUFF_SIZE_P)
 	{
-		write(1, &option->buffer, option->b);
+		write(option->fd, &option->buffer, option->b);
 		option->b = 0;
 		ft_bzero(option->buffer, BUFF_SIZE_P);
 	}
@@ -35,10 +35,41 @@ void	ft_putbuffer(t_option *option)
 		option->b = option->b + 1;
 		if (option->b == BUFF_SIZE_P)
 		{
-			write(1, &option->buffer, option->b);
+			write(option->fd, &option->buffer, option->b);
 			option->b = 0;
 			ft_bzero(option->buffer, BUFF_SIZE_P);
 		}
+		i++;
+	}
+}
+
+void	ft_reallocbufferchar(char c, t_option *option)
+{
+	if (!(option->b % BUFF_SIZE_P) && option->b != 0)
+	{
+		if (!(option->sbuffer = ft_memrealloc(option->sbuffer,
+						option->b, option->b + BUFF_SIZE_P + 1)))
+			exit(0);
+	}
+	option->sbuffer[option->b] = c;
+	option->b = option->b + 1;
+}
+
+void	ft_reallocbuffer(t_option *option)
+{
+	int i;
+
+	i = 0;
+	while (i < option->final_len)
+	{
+		if (!(option->b % BUFF_SIZE_P) && option->b != 0)
+		{
+			if (!(option->sbuffer = ft_memrealloc(option->sbuffer,
+						option->b, option->b + BUFF_SIZE_P + 1)))
+				exit(0);
+		}
+		option->sbuffer[option->b] = option->final[i];
+		option->b = option->b + 1;
 		i++;
 	}
 }

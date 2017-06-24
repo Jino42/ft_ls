@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 17:19:30 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/02/13 00:14:38 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/24 14:55:51 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define MOD_LL	6
 # define MOD_LLL 7
 
-# define BUFF_SIZE_P 10
+# define BUFF_SIZE_P 16
 
 typedef struct	s_option
 {
@@ -57,13 +57,23 @@ typedef struct	s_option
 	int				b;
 	char			buffer[BUFF_SIZE_P];
 	int				sub_word;
+	int				fd;
+	char			*sbuffer;
+	int				flag;
 }				t_option;
 
 int				ft_printf(char *str, ...);
-int				check_flags(char *str, t_option *option);
+int				ft_dprintf(int fd, char *str, ...);
+char			*ft_sprintf(char *str, ...);
+
+void			printf_loop(char *str, t_option *option);
+
 void			ft_putbuffer(t_option *option);
 void			ft_putbufferchar(char c, t_option *option);
+void			ft_reallocbuffer(t_option *option);
+void			ft_reallocbufferchar(char c, t_option *option);
 
+int				check_flags(char *str, t_option *option);
 int				sc_c(char *str, t_option *option);
 int				sc_s(char *str, t_option *option);
 int				dipfoux(char *str, t_option *option);

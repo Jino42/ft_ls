@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:51:23 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/23 05:44:39 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/24 16:48:51 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,35 @@ static int		ls_get_dir(t_env *e, t_elem *elem)
 {
 	void			*ptr;
 	struct dirent	*dir;
+	char			*temp;
 
 	(void)e;
+	ft_printf("Path : %s\n", elem->path);
 	ptr = opendir(elem->path);
 	if (!ptr)
 		return (0);
-	ft_printf("\033[31mNEW_DIR : \n\033[0m");
+//	ft_printf("\033[31mNEW_DIR : \n\033[0m");
 	while ((dir = readdir(ptr)))
 	{
-		ft_printf("Path : %s Type ? %hhc\n", dir->d_name, dir->d_type);
-	//	ft_lstadd(&e->temp, ft_lstnew(argv[*i], ft_strlen() + 1));
+		if (dir->d_type == DT_DIR &&
+				ft_strcmp(dir->d_name, ".") &&
+				ft_strcmp(dir->d_name, ".."))
+		{
+			temp = ft_sprintf("%s/%s", elem->path, dir->d_name);
+//			ft_printf("%s\n", temp);
+			ft_lstadd(&e->temp, ft_lstnew(temp, ft_strlen(temp) + 1));
+			ft_strdel(&temp);
+		}
+		else if (dir->d_type == DT_REG)
+		{
+			temp = ft_sprintf("%s/%s", elem->path, dir->d_name);
+//			ft_printf("%s\n", temp);
+			ft_lstadd(&e->temp, ft_lstnew(temp, ft_strlen(temp) + 1));
+			ft_strdel(&temp);
+		}
 	}
 	closedir(ptr);
+	ls_recup_file_from_arg(e);
 	return (1);
 }
 
@@ -63,6 +80,7 @@ int			ls_loop(t_env *e)
 		{
 			if (!(ls_get_dir(e, (t_elem*)ret->content)))
 					return (0);
+			ls_print(e, e->file, 0);
 			ret = ft_lst_remove_index(&e->dir, index);
 			if (ret)
 				ls_free_elem(&ret);
