@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:47:55 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 20:02:48 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/24 20:11:27 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int				ls_recup_file(t_env *e)
 			if (buff.st_mode & S_IFDIR)
 			{
 				ft_lstinsert(&e->dir, ret);
-				ret = ls_stat_to_list(e, buff, (char*)save->content);
+				ret = ls_stat_to_list(e, buff, ft_strdup((char*)save->content));
 				ft_lstinsert(&e->file, ret);
 			}
 			else
