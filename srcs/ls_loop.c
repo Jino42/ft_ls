@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:51:23 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 19:29:08 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/24 20:01:02 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ static int		ls_get_dir(t_env *e, t_elem *elem)
 	char			*temp;
 
 	(void)e;
-	ft_printf("Path : %s\n", elem->path);
 	ptr = opendir(elem->path);
 	if (!ptr)
 		return (0);
-//	ft_printf("\033[31mNEW_DIR : \n\033[0m");
+	ft_printf("\033[31mNEW_DIR : %s\n\033[0m", elem->path);
 	while ((dir = readdir(ptr)))
 	{
 		if (dir->d_type == DT_DIR &&
@@ -78,9 +77,9 @@ int			ls_loop(t_env *e)
 		while ((ret = ft_find_dir(e->dir, index)))
 		{
 			if (!(ls_get_dir(e, (t_elem*)ret->content)))
-					return (0);
-			ls_print(e, e->file, 0);
+					;
 			ls_recup_file(e);
+			ls_print(e, e->file, 0);
 			ret = ft_lst_remove_index(&e->dir, index);
 			if (ret)
 				ls_free_elem(&ret);

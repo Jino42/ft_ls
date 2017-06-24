@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:47:55 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 19:27:57 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/24 20:02:48 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ static t_list	*ls_stat_to_list(t_env *e, struct stat buff, char *path)
 	ft_memset(&elem.mode, '-', sizeof(char) * 10);
 	elem.path = path;
 	ls_type_and_file_right(&elem, buff.st_mode);
-	if (elem.mode[NUM_TYPE] == '-')
-		elem.ind_curf = find_last_slash(&elem);
+	elem.ind_curf = find_last_slash(&elem);
 	elem.size = buff.st_size;
 	elem.atime = buff.st_atime;
 	elem.nlink = buff.st_nlink;
@@ -77,12 +76,16 @@ int				ls_recup_file(t_env *e)
 			save = lst;
 			lst = lst->next;
 			ret = ls_stat_to_list(e, buff, (char*)save->content);
-			save = ft_lst_remove(&e->temp, save);
-			ft_memdel((void**)&save);
 			if (buff.st_mode & S_IFDIR)
+			{
 				ft_lstinsert(&e->dir, ret);
+				ret = ls_stat_to_list(e, buff, (char*)save->content);
+				ft_lstinsert(&e->file, ret);
+			}
 			else
 				ft_lstinsert(&e->file, ret);
+			save = ft_lst_remove(&e->temp, save);
+			ft_memdel((void**)&save);
 		}
 	}
 	ls_free_temp(&e->temp);
