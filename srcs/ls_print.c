@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:55:33 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 17:55:29 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/24 19:25:48 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void		ls_print(t_env *e, t_list *l, int dir)
 		save = l;
 		l = l->next;
 		ret = ft_lst_remove_index(&save, 0);
-//		if (ret)
-//			ls_free_elem(&ret);
+		ret->next = NULL;
+		if (ret)
+			ls_free_elem(&ret);
 	}
+	e->file = NULL;
 }

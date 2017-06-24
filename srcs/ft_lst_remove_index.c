@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 20:30:53 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/23 05:44:01 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/24 19:25:37 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_list		*ft_lst_remove_index(t_list	**lst, size_t index)
 	t_list	*save;
 
 	past = NULL;
+	save = NULL;
 	if (lst == NULL || *lst == NULL)
 		return (NULL);
 	while (*lst && index)
