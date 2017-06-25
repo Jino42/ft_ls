@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:16 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/25 10:36:43 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/25 11:34:40 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int			main(int argc, char **argv)
 
 	ft_bzero(&e, sizeof(t_env));
 	pars_arg(&e, argc, argv, &i);
-	ft_dprintf(2, "L[%i] | R[%i] | r[%i] | t[%i] | a[%i]\n", e.flag & FLAG_L, e.flag & FLAG_R, e.flag & FLAG_RV, e.flag & FLAG_T, e.flag & FLAG_A);
+//	ft_dprintf(2, "L[%i] | R[%i] | r[%i] | t[%i] | a[%i]\n", e.flag & FLAG_L, e.flag & FLAG_R, e.flag & FLAG_RV, e.flag & FLAG_T, e.flag & FLAG_A);
 	ls_recup_file_from_arg(&e);
 	if (!(ls_loop(&e)))
 	{
@@ -94,12 +94,12 @@ int			main(int argc, char **argv)
 		return (0);
 	}
 
-	print_elem(&e);
+	//print_elem(&e);
 	ls_free_temp(&e.temp);
 	ls_free_temp(&e.not_here);
 	ls_free_elem(&e.file);
 	ls_free_elem(&e.dir);
-	ft_bzero(&e, sizeof(t_env));
-	while (1);
+//	ft_bzero(&e, sizeof(t_env));
+//	while (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:51:23 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/25 10:42:40 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/25 11:34:26 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int			ls_loop(t_env *e)
 			e->temp_dir = NULL;
 			if (!(ls_get_dir(e, (t_elem*)ret->content)))
 					;
-			ft_printf("WWD\n");
+			if (e->cur_dir)
+				ft_putchar('\n');
 			ls_recup_file(e);
 			ls_print(e, e->file, 0);
 			ret = ft_lst_remove_index(&e->dir, index);
@@ -102,13 +103,12 @@ int			ls_loop(t_env *e)
 				l = e->temp_dir;
 				while (l)
 				{
-//					ft_printf("++\n");
 					save = l;
 					l = l->next;
 					ft_lstadd(&e->dir, save);
 				}
 			}
-				print_list(e->dir);
+			e->cur_dir++;
 		}
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:46 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/25 10:36:21 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/25 12:50:54 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ typedef struct	s_elem
 typedef struct	s_env
 {
 	int			flag;
+	int			nb_arg;
+	int			cur_dir;
 	t_list		*file;
 	t_list		*dir;
 	t_list		*temp;

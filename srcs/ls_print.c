@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:55:33 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/25 10:04:45 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/25 13:03:07 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void		print_file(t_env *e, t_elem *elem)
 {
 	(void)e;
-	ft_printf("\033[32m%s\033[0m\n",
+	ft_printf("%s\n",
 		&elem->path[elem->ind_curf]);
 }
 
@@ -25,7 +25,7 @@ static void		print_option_l(t_env *e, t_elem *elem)
 
 	(void)e;
 	time = ctime(&(elem->atime));
-	ft_printf("%s %3li %s %s %6li %.12s \033[32m%s\033[0m\n",
+	ft_printf("%s %3li %s  %s %6li %.12s %s",
 		elem->mode,
 		elem->nlink,
 		elem->p_name,
@@ -33,6 +33,9 @@ static void		print_option_l(t_env *e, t_elem *elem)
 		elem->size,
 		time + 4,
 		&elem->path[elem->ind_curf]);
+	if (elem->mode[NUM_TYPE] == 'l')
+		ft_printf("%s", elem->r_lnk);
+	ft_putchar('\n');
 }
 
 void		ls_print(t_env *e, t_list *l, int dir)
@@ -42,7 +45,11 @@ void		ls_print(t_env *e, t_list *l, int dir)
 	t_list	*ret;
 (void)dir;(void)e;(void)ret;
 
-	ft_printf("\033[33m%s :\n\033[0m", ((t_elem*)e->dir->content)->path);
+//	ft_printf("\033[33m%s:\n\033[0m", ((t_elem*)e->dir->content)->path);
+	if (e->cur_dir)
+	ft_printf("%s:\n", ((t_elem*)e->dir->content)->path);
+	else if (e->nb_arg > 1)
+		ft_printf("%s:\n", ((t_elem*)e->dir->content)->path);
 	while (l)
 	{
 		elem = l->content;

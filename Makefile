@@ -6,7 +6,7 @@
 #    By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 18:45:43 by ntoniolo          #+#    #+#              #
-#    Updated: 2017/06/24 19:27:25 by ntoniolo         ###   ########.fr        #
+#    Updated: 2017/06/25 13:10:34 by ntoniolo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,12 +48,12 @@ OBJ_DIR = objs/
 all: $(OBJ_DIR) $(NAME)
 
 $(NAME): lib $(addprefix $(OBJ_DIR), $(OBJET)) $(INC_FILES)
-	@$(CC) $(MODE) -I$(INC) $(addprefix $(OBJ_DIR), $(OBJET)) -L./$(DIR_LIB) -lft -o $(NAME)
+	@$(CC) $(MODE) -I$(INC) $(addprefix $(OBJ_DIR), $(OBJET)) -L./$(DIR_LFT) -lft -o $(NAME)
 	@echo "\033[4m\033[1m\033[32m>$(NAME) done.\033[0m"
 
 $(OBJ_DIR) :
 	@mkdir $(OBJ_DIR)
-	@mkdir $(DIR_LIB)
+	#@mkdir $(DIR_LIB)
 	#@mkdir $(OBJ_DIR)/event
 
 start:
@@ -68,7 +68,7 @@ $(OBJ_DIR)%.o: $(addprefix $(SRC_DIR), %.c) $(INC_FILES)
 
 lib:
 	@(cd $(DIR_LFT) && $(MAKE))
-	@(cp $(DIR_LFT)libft.a ./libs/)
+#	@(cp $(DIR_LFT)libft.a ./libs/)
 
 clean:
 	@/bin/rm -rf $(OBJ_DIR)
@@ -76,7 +76,7 @@ clean:
 
 fclean: clean
 	@/bin/rm -f $(NAME)
-	@(rm -rf $(DIR_LIB))
+#	@(rm -rf $(DIR_LIB))
 	@(cd $(DIR_LFT) && make fclean)
 
 re: fclean all

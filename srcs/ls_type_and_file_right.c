@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:59:16 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 16:25:00 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/25 13:06:07 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,19 @@ static void	type_of_file(ssize_t st_mode, char *tab)
 void		ls_type_and_file_right(t_elem *elem, ssize_t st_mode)
 {
 	struct stat buff;
+	char	*temp;
 
 	lstat(elem->path, &buff);
 	if ((buff.st_mode & S_IFMT) == S_IFLNK)
 	{
-		ft_printf("OUIIII !\n"); //Readlink ! + add r_lnk
+		if (!(temp = (char *)ft_memalloc(buff.st_size + 1)))
+			exit(0);
+		if (!(readlink(elem->path, temp, buff.st_size + 1)))
+		{
+			perror("readlink");
+			exit(0);
+		}
+		elem->r_lnk = ft_sprintf(" -> %s", temp);
 		elem->mode[NUM_TYPE] = 'l';
 	}
 	else
