@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:51:23 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/25 10:21:12 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/25 10:42:40 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,15 @@ static int		ls_get_dir(t_env *e, t_elem *elem)
 	return (1);
 }
 
+void		print_list(t_list *e)
+{
+	while (e)
+	{
+		ft_printf("Print_list : %s\n", ((t_elem*)e->content)->path);
+		e  = e->next;
+	}
+}
+
 int			ls_loop(t_env *e)
 {
 	int		index;
@@ -76,6 +85,7 @@ int			ls_loop(t_env *e)
 	{
 		while ((ret = ft_find_dir(e->dir, index)))
 		{
+			e->temp_dir = NULL;
 			if (!(ls_get_dir(e, (t_elem*)ret->content)))
 					;
 			ft_printf("WWD\n");
@@ -85,6 +95,20 @@ int			ls_loop(t_env *e)
 			if (ret)
 				ls_free_elem(&ret);
 			ret = NULL;
+			if (e->flag & FLAG_R)
+			{
+				t_list *l;
+				t_list *save;
+				l = e->temp_dir;
+				while (l)
+				{
+//					ft_printf("++\n");
+					save = l;
+					l = l->next;
+					ft_lstadd(&e->dir, save);
+				}
+			}
+				print_list(e->dir);
 		}
 	}
 	return (1);

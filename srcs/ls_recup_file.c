@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:47:55 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/25 10:17:04 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/25 10:43:13 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int				ls_recup_file(t_env *e)
 				if (e->flag & FLAG_R)
 				{
 					ret = ls_stat_to_list(e, buff, (char*)save->content);
-					ft_lstinsert(&e->dir, ret);
+					ft_lstadd(&e->temp_dir, ret);
 				}
 				ret = ls_stat_to_list(e, buff, ft_strdup((char*)save->content));
 				ft_lstinsert(&e->file, ret);

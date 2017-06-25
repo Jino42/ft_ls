@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:46 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 19:27:39 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/25 10:36:21 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct	s_env
 	t_list		*dir;
 	t_list		*temp;
 	t_list		*not_here;
+	t_list		*temp_dir;
 }				t_env;
 
 t_list			*ft_lst_remove_index(t_list **lst, size_t index);
