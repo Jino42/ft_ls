@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:16 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 16:37:35 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/25 10:15:15 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,6 @@ void		print_elem(t_env *e)
 	}
 }
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-
 int			main(int argc, char **argv)
 {
 	t_env	e;
@@ -91,6 +86,7 @@ int			main(int argc, char **argv)
 
 	ft_bzero(&e, sizeof(t_env));
 	pars_arg(&e, argc, argv, &i);
+	ft_dprintf(2, "L[%i] | R[%i] | r[%i] | t[%i] | a[%i]\n", e.flag & FLAG_L, e.flag & FLAG_R, e.flag & FLAG_RV, e.flag & FLAG_T, e.flag & FLAG_A);
 	ls_recup_file_from_arg(&e);
 	if (!(ls_loop(&e)))
 	{
@@ -99,9 +95,6 @@ int			main(int argc, char **argv)
 	}
 
 	print_elem(&e);
-//	rec = ft_lst_remove_index(&e.not_here, index);
-//	if (rec)
-//		ls_free_temp(&rec);
 	ls_free_temp(&e.temp);
 	ls_free_temp(&e.not_here);
 	ls_free_elem(&e.file);

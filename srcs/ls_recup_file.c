@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:47:55 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 20:11:27 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/25 10:17:04 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static size_t	find_last_slash(t_elem *elem)
 	i = ft_strlen(elem->path);
 	while (i)
 	{
-		if (elem->path[i] == '/' && i - 1 && elem->path[i - 1] != '\\')
+		if (elem->path[i] == '/' && elem->path[i - 1] != '\\')
 			return (i + 1);
 		i--;
 	}
@@ -75,15 +75,21 @@ int				ls_recup_file(t_env *e)
 		{
 			save = lst;
 			lst = lst->next;
-			ret = ls_stat_to_list(e, buff, (char*)save->content);
 			if (buff.st_mode & S_IFDIR)
 			{
-				ft_lstinsert(&e->dir, ret);
+				if (e->flag & FLAG_R)
+				{
+					ret = ls_stat_to_list(e, buff, (char*)save->content);
+					ft_lstinsert(&e->dir, ret);
+				}
 				ret = ls_stat_to_list(e, buff, ft_strdup((char*)save->content));
 				ft_lstinsert(&e->file, ret);
 			}
 			else
+			{
+				ret = ls_stat_to_list(e, buff, (char*)save->content);
 				ft_lstinsert(&e->file, ret);
+			}
 			save = ft_lst_remove(&e->temp, save);
 			ft_memdel((void**)&save);
 		}

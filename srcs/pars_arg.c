@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 17:59:18 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/23 05:27:19 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/25 10:21:38 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	pars_file(t_env *e, int argc, char **argv, int *i)
 	ft_bzero(&elem, sizeof(t_elem));
 	while (*i < argc)
 	{
-		ft_lstadd(&e->temp, ft_lstnew(argv[*i], ft_strlen(argv[*i]) + 1));
+		ft_lstinsert_alphabet(&e->temp, ft_lstnew(argv[*i], ft_strlen(argv[*i]) + 1));
 		(*i)++;
 	}
 }

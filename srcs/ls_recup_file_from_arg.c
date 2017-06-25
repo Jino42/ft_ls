@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:47:55 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 17:55:10 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/25 10:17:47 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ static t_list	*ls_stat_to_list(t_env *e, struct stat buff, char *path)
 	ft_memset(&elem.mode, '-', sizeof(char) * 10);
 	elem.path = path;
 	ls_type_and_file_right(&elem, buff.st_mode);
-	if (elem.mode[NUM_TYPE] == '-')
-		elem.ind_curf = find_last_slash(&elem);
+	elem.ind_curf = find_last_slash(&elem);
 	elem.size = buff.st_size;
 	elem.atime = buff.st_atime;
 	elem.nlink = buff.st_nlink;
