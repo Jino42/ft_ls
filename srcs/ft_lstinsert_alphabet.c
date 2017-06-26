@@ -6,12 +6,11 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 23:39:15 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/21 23:39:46 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 09:34:58 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
 
 static int	ret_dif_ascii(char *str, char *str2)
 {
@@ -30,17 +29,22 @@ static int	ret_dif_ascii(char *str, char *str2)
 		return (1);
 }
 
+static void	init(t_list **lst, t_list **past, t_list **cur, t_list *new)
+{
+	*past = NULL;
+	*cur = *lst;
+	if (*lst == NULL)
+		*lst = new;
+}
+
 void		ft_lstinsert_alphabet(t_list **lst, t_list *new)
 {
 	t_list *past;
 	t_list *cur;
 
-	past = NULL;
-	cur = *lst;
 	if (lst == NULL || new == NULL)
 		return ;
-	if (*lst == NULL)
-		*lst = new;
+	init(lst, &past, &cur, new);
 	while (cur)
 	{
 		if (ret_dif_ascii(((char*)cur->content),

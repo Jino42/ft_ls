@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:55:33 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/26 06:11:27 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 09:37:59 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void		print_option_l(t_env *e, t_elem *elem, t_size_m *size_m)
 	char	*ret_time;
 
 	(void)e;
-//	time = ctime(&(elem->atime));
 	ret_time = ctime((const time_t*)(&elem->atime));
 	ft_printf("%s %*li %-*s  %-*s %*li %.12s %s",
 		elem->mode,
@@ -39,7 +38,7 @@ static void		print_option_l(t_env *e, t_elem *elem, t_size_m *size_m)
 	ft_putchar('\n');
 }
 
-static size_t count_nb(size_t nb)
+static size_t	count_nb(size_t nb)
 {
 	size_t i;
 
@@ -52,9 +51,9 @@ static size_t count_nb(size_t nb)
 	return (i);
 }
 
-static void	ls_max_print(t_list *lst, t_size_m *size_m)
+static void		ls_max_print(t_list *lst, t_size_m *size_m)
 {
-	t_elem *elem;
+	t_elem	*elem;
 	size_t	temp;
 
 	while (lst)
@@ -77,18 +76,18 @@ static void	ls_max_print(t_list *lst, t_size_m *size_m)
 	size_m->nlink_max = count_nb(size_m->nlink_max);
 }
 
-void		ls_print(t_env *e, t_list *l, int dir)
+void			ls_print(t_env *e, t_list *l, int dir)
 {
 	t_elem		*elem;
 	t_list		*save;
 	t_list		*ret;
 	t_size_m	size_m;
-(void)dir;(void)e;(void)ret;
 
-//	ft_printf("\033[33m%s:\n\033[0m", ((t_elem*)e->dir->content)->path);
+	(void)dir;
 	ft_bzero(&size_m, sizeof(t_size_m));
 	ls_max_print(e->file, &size_m);
-	//ft_printf("\033[33mSize max : P[%li] G[%li] S[%i] L[%li]\n\033[0m", size_m.p_max, size_m.g_max, size_m.size_max, size_m.nlink_max);
+	//ft_printf("\033[33mSize max : P[%li] G[%li] S[%i] L[%li]\n\033[0m",
+	//size_m.p_max, size_m.g_max, size_m.size_max, size_m.nlink_max);
 	if (e->cur_dir)
 		ft_printf("%s:\n", ((t_elem*)e->dir->content)->path);
 	else if (e->nb_arg > 1)
@@ -106,12 +105,7 @@ void		ls_print(t_env *e, t_list *l, int dir)
 		l = l->next;
 		ret = ft_lst_remove_index(&save, 0);
 		ret->next = NULL;
-/*		if ((e->flag & FLAG_R) && ((t_elem*)ret->content)->mode[0] == 'd')
-		{
-			ft_printf("Enter\n");
-			ft_lstadd(&e->dir, ret);
-		}
-		else */if (ret)
+		if (ret)
 			ls_free_elem(&ret);
 	}
 	e->file = NULL;

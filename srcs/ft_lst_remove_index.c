@@ -6,13 +6,13 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 20:30:53 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 19:25:37 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 09:28:07 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_list		*ft_lst_remove_index(t_list	**lst, size_t index)
+t_list		*ft_lst_remove_index(t_list **lst, size_t index)
 {
 	t_list	*past;
 	t_list	*save;

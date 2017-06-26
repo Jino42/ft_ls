@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:51:23 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/26 07:35:12 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 09:19:46 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			ls_loop(t_env *e)
 			;
 		if (e->cur_dir)
 			ft_putchar('\n');
-		ls_recup_file(e);
+		ls_recup_file(e, 0);
 		ls_print(e, e->file, 0);
 		ret = ft_lst_remove_index(&e->dir, 0);
 		if (ret)

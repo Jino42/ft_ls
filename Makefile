@@ -6,7 +6,7 @@
 #    By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 18:45:43 by ntoniolo          #+#    #+#              #
-#    Updated: 2017/06/26 07:30:02 by ntoniolo         ###   ########.fr        #
+#    Updated: 2017/06/26 08:03:55 by ntoniolo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC = main.c \
 	  ft_lstinsert_alphabet.c \
 	  ft_lst_remove_index.c \
 	  ls_get_dir.c \
+	  ls_stat_to_list.c \
 	  ft_lst_remove.c \
 	  ls_print.c \
 	  ls_loop.c \
