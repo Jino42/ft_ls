@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:55:33 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/26 03:13:05 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 05:06:43 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void		ls_print(t_env *e, t_list *l, int dir)
 		ft_printf("%s:\n", ((t_elem*)e->dir->content)->path);
 	else if (e->nb_arg > 1)
 		ft_printf("%s:\n", ((t_elem*)e->dir->content)->path);
-	ft_printf("total %li\n", size_m.total_blocks);
+	if (e->flag & FLAG_L)
+		ft_printf("total %li\n", size_m.total_blocks);
 	while (l)
 	{
 		elem = l->content;

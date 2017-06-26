@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:59:16 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/26 04:03:32 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 04:52:57 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void		ls_type_and_file_right(t_elem *elem, ssize_t st_mode, struct stat *ptr_buf
 		}
 		elem->r_lnk = ft_sprintf(" -> %s", temp);
 		elem->mode[NUM_TYPE] = 'l';
+		st_mode = buff.st_mode;
 		*ptr_buff = buff;
 	}
 	else

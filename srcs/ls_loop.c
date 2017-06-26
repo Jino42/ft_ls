@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:51:23 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/26 04:15:24 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 05:54:09 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,7 @@ static int		ls_get_dir(t_env *e, t_elem *elem)
 	if (!ptr)
 		return (0);
 	while ((dir = readdir(ptr)))
-	{
-		if (ft_strcmp(dir->d_name, ".") &&
-			ft_strcmp(dir->d_name, ".."))
-			ls_add_to_list(e, elem, dir);
-		else if (e->flag & FLAG_A)
-			ls_add_to_list(e, elem, dir);
-	}
+		ls_add_to_list(e, elem, dir);
 	closedir(ptr);
 	return (1);
 }
@@ -70,6 +64,19 @@ void		print_list(t_list *e)
 		ft_printf("Print_list : %s\n", ((t_elem*)e->content)->path);
 		e  = e->next;
 	}
+}
+
+int			is_not_cur(t_list *l)
+{
+	t_elem *elem;
+
+	elem = l->content;
+	if (elem->path[elem->ind_curf] == '.' && elem->path[elem->ind_curf + 1] == '\0')
+		return (0);
+	if (elem->path[elem->ind_curf] == '.' && elem->path[elem->ind_curf + 1] == '.'
+			&& elem->path[elem->ind_curf + 2] == '\0')
+		return (0);
+	return (1);
 }
 
 int			ls_loop(t_env *e)
@@ -107,7 +114,8 @@ int			ls_loop(t_env *e)
 				{
 					save = l;
 					l = l->next;
-					ft_lstadd(&e->dir, save);
+					if (is_not_cur(save))
+						ft_lstadd(&e->dir, save);
 				}
 			}
 			e->cur_dir++;

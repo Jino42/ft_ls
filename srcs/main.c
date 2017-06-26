@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:16 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/25 11:34:40 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 04:50:08 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,5 @@ int			main(int argc, char **argv)
 	ls_free_elem(&e.dir);
 //	ft_bzero(&e, sizeof(t_env));
 //	while (1);
-	return (0);
+	return (1);
 }
