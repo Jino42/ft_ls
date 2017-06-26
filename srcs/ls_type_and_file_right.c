@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:59:16 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/25 13:06:07 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 04:03:32 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	type_of_file(ssize_t st_mode, char *tab)
 		tab[NUM_TYPE] = 'p';
 }
 
-void		ls_type_and_file_right(t_elem *elem, ssize_t st_mode)
+void		ls_type_and_file_right(t_elem *elem, ssize_t st_mode, struct stat *ptr_buff)
 {
 	struct stat buff;
 	char	*temp;
@@ -104,6 +104,7 @@ void		ls_type_and_file_right(t_elem *elem, ssize_t st_mode)
 		}
 		elem->r_lnk = ft_sprintf(" -> %s", temp);
 		elem->mode[NUM_TYPE] = 'l';
+		*ptr_buff = buff;
 	}
 	else
 		type_of_file(st_mode, elem->mode);

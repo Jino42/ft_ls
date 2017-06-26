@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:47:55 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/25 12:50:17 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 04:04:47 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,13 @@ static t_list	*ls_stat_to_list(t_env *e, struct stat buff, char *path)
 	ft_bzero(&elem, sizeof(t_elem));
 	ft_memset(&elem.mode, '-', sizeof(char) * 10);
 	elem.path = path;
-	ls_type_and_file_right(&elem, buff.st_mode);
+	ls_type_and_file_right(&elem, buff.st_mode, &buff);
 	elem.ind_curf = find_last_slash(&elem);
-	elem.size = buff.st_size;
+	if (elem.mode[NUM_TYPE] != 'l')
+	{
+		elem.size = buff.st_size;
+		elem.blocks = buff.st_blocks;
+	}
 	elem.atime = buff.st_atime;
 	elem.nlink = buff.st_nlink;
 	passwd = getpwuid(buff.st_uid);

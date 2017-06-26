@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:46 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/25 12:50:54 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 04:03:50 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,14 @@
 # define P_FILE 0
 # define P_DIR 1
 
-typedef struct	s_inf
+typedef struct	s_size_m
 {
-	char		*path;
-	size_t		ind_curf;
-}				t_inf;
+	size_t p_max;
+	size_t g_max;
+	size_t size_max;
+	size_t nlink_max;
+	size_t total_blocks;
+}				t_size_m;
 
 typedef struct	s_elem
 {
@@ -57,6 +60,7 @@ typedef struct	s_elem
 	size_t		size;
 	time_t		atime;
 	size_t		nlink;
+	size_t		blocks;
 	char		*p_name;
 	char		*g_name;
 	char		*r_lnk;
@@ -83,7 +87,7 @@ void			pars_arg(t_env *e, int argc, char **argv, int *i);
 int				ls_recup_file_from_arg(t_env *e);
 int				ls_recup_file(t_env *e);
 
-void			ls_type_and_file_right(t_elem *elem, ssize_t st_mode);
+void			ls_type_and_file_right(t_elem *elem, ssize_t st_mode, struct stat *ptr_buff);
 int				ls_loop(t_env *e);
 void			ls_print(t_env *e, t_list *lst, int dir);
 

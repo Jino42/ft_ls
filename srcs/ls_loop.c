@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:51:23 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/25 11:34:26 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 04:15:24 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static int		ls_get_dir(t_env *e, t_elem *elem)
 	{
 		if (ft_strcmp(dir->d_name, ".") &&
 			ft_strcmp(dir->d_name, ".."))
+			ls_add_to_list(e, elem, dir);
+		else if (e->flag & FLAG_A)
 			ls_add_to_list(e, elem, dir);
 	}
 	closedir(ptr);
