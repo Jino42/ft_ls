@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:55:33 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/26 05:06:43 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 06:11:27 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void		print_option_l(t_env *e, t_elem *elem, t_size_m *size_m)
 
 	(void)e;
 //	time = ctime(&(elem->atime));
-	ret_time = ctime((&elem->atime));
+	ret_time = ctime((const time_t*)(&elem->atime));
 	ft_printf("%s %*li %-*s  %-*s %*li %.12s %s",
 		elem->mode,
 		size_m->nlink_max + 1, elem->nlink,

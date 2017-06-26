@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:46 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/26 04:03:50 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 07:29:52 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void			ft_lstinsert_alphabet(t_list **lst, t_list *new);
 void			pars_arg(t_env *e, int argc, char **argv, int *i);
 int				ls_recup_file_from_arg(t_env *e);
 int				ls_recup_file(t_env *e);
+int				ls_get_dir(t_env *e, t_elem *elem);
 
 void			ls_type_and_file_right(t_elem *elem, ssize_t st_mode, struct stat *ptr_buff);
 int				ls_loop(t_env *e);

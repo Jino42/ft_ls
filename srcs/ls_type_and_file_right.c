@@ -6,68 +6,53 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:59:16 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/26 04:52:57 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/26 07:38:55 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void right_usr(ssize_t st_mode, char *tab)
+/*
+** #define __S_ISTYPE(mode, mask)  (((mode) & __S_IFMT) == (mask))
+** ...
+** #define S_ISREG(mode)    __S_ISTYPE((mode), __S_IFREG)
+*/
+
+static void	right_usr(ssize_t st_mode, char *tab)
 {
-//	if (S_IRWXU & st_mode)
-//		*((unsigned int*)&tab[NUM_USR]) = ALL_R;
-//	else
-//	{
-		if (S_IXUSR & st_mode)
-			tab[NUM_USR + NUM_X] = 'x';
-		if (S_IWUSR & st_mode)
-			tab[NUM_USR + NUM_W] = 'w';
-		if (S_IRUSR & st_mode)
-			tab[NUM_USR + NUM_R] = 'r';
-//	}
+	if (S_IXUSR & st_mode)
+		tab[NUM_USR + NUM_X] = 'x';
+	if (S_IWUSR & st_mode)
+		tab[NUM_USR + NUM_W] = 'w';
+	if (S_IRUSR & st_mode)
+		tab[NUM_USR + NUM_R] = 'r';
 	if (S_ISUID & st_mode)
 		tab[NUM_USR + NUM_X] = 'S';
 }
 
-static void right_grp(ssize_t st_mode, char *tab)
+static void	right_grp(ssize_t st_mode, char *tab)
 {
-//	if (S_IRWXG & st_mode)
-//		*((unsigned int*)&tab[NUM_GRP]) = ALL_R;
-//	else
-//	{
-		if (S_IXGRP & st_mode)
-			tab[NUM_GRP + NUM_X] = 'x';
-		if (S_IWGRP & st_mode)
-			tab[NUM_GRP + NUM_W] = 'w';
-		if (S_IRGRP & st_mode)
-			tab[NUM_GRP + NUM_R] = 'r';
-//	}
+	if (S_IXGRP & st_mode)
+		tab[NUM_GRP + NUM_X] = 'x';
+	if (S_IWGRP & st_mode)
+		tab[NUM_GRP + NUM_W] = 'w';
+	if (S_IRGRP & st_mode)
+		tab[NUM_GRP + NUM_R] = 'r';
 	if (S_ISGID & st_mode)
 		tab[NUM_GRP + NUM_X] = 'S';
 }
 
-static void right_oth(ssize_t st_mode, char *tab)
+static void	right_oth(ssize_t st_mode, char *tab)
 {
-//	if (S_IRWXO & st_mode)
-//		*((unsigned int*)&tab[NUM_OTH]) = ALL_R;
-//	else
-//	{
-		if (S_IXOTH & st_mode)
-			tab[NUM_OTH + NUM_X] = 'x';
-		if (S_IWOTH & st_mode)
-			tab[NUM_OTH + NUM_W] = 'w';
-		if (S_IROTH & st_mode)
-			tab[NUM_OTH + NUM_R] = 'r';
-//	}
+	if (S_IXOTH & st_mode)
+		tab[NUM_OTH + NUM_X] = 'x';
+	if (S_IWOTH & st_mode)
+		tab[NUM_OTH + NUM_W] = 'w';
+	if (S_IROTH & st_mode)
+		tab[NUM_OTH + NUM_R] = 'r';
 	if (S_ISVTX & st_mode)
 		tab[NUM_OTH + NUM_X] = 't';
 }
-
-/*
- * #define __S_ISTYPE(mode, mask)  (((mode) & __S_IFMT) == (mask))
- * ...
- * #define S_ISREG(mode)    __S_ISTYPE((mode), __S_IFREG)
-*/
 
 static void	type_of_file(ssize_t st_mode, char *tab)
 {
@@ -87,10 +72,11 @@ static void	type_of_file(ssize_t st_mode, char *tab)
 		tab[NUM_TYPE] = 'p';
 }
 
-void		ls_type_and_file_right(t_elem *elem, ssize_t st_mode, struct stat *ptr_buff)
+void		ls_type_and_file_right(t_elem *elem, ssize_t st_mode,
+											struct stat *ptr_buff)
 {
-	struct stat buff;
-	char	*temp;
+	struct stat	buff;
+	char		*temp;
 
 	lstat(elem->path, &buff);
 	if ((buff.st_mode & S_IFMT) == S_IFLNK)
