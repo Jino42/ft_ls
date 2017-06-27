@@ -6,7 +6,7 @@
 #    By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 18:45:43 by ntoniolo          #+#    #+#              #
-#    Updated: 2017/06/26 08:03:55 by ntoniolo         ###   ########.fr        #
+#    Updated: 2017/06/27 07:42:41 by ntoniolo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ FLAGS = -Wall -Werror -Wextra -g -I ./include/
 SRC = main.c \
 	  ls_type_and_file_right.c \
 	  ft_lstinsert_alphabet.c \
+	  ft_lstinsert_time.c \
 	  ft_lst_remove_index.c \
 	  ls_get_dir.c \
 	  ls_stat_to_list.c \

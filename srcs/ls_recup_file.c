@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:47:55 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/26 09:25:55 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 07:41:47 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,18 @@ static void		ls_put_in_list(t_env *e, struct stat buff, t_list *save)
 			ft_lstadd(&e->temp_dir, ret);
 			ret = ls_stat_to_list(e, buff, ft_strdup((char*)save->content));
 		}
-		ft_lstinsert(&e->file, ret);
+		if (e->flag & FLAG_T)
+			ft_lstinsert_time(&e->file, ret, e->flag & FLAG_RV);
+		else
+			ft_lstinsert(&e->file, ret);
 	}
 	else
-		ft_lstinsert(&e->file, ret);
+	{
+		if (e->flag & FLAG_T)
+			ft_lstinsert_time(&e->file, ret, e->flag & FLAG_RV);
+		else
+			ft_lstinsert(&e->file, ret);
+	}
 	save = ft_lst_remove(&e->temp, save);
 	ft_memdel((void**)&save);
 }
@@ -56,9 +64,19 @@ static void		ls_initialisation_list(t_env *e, struct stat buff, t_list *save)
 	save = ft_lst_remove(&e->temp, save);
 	ft_memdel((void**)&save);
 	if (buff.st_mode & S_IFDIR)
-		ft_lstinsert(&e->dir, ret);
+	{
+		if (e->flag & FLAG_T)
+			ft_lstinsert_time(&e->dir, ret, e->flag & FLAG_RV);
+		else
+			ft_lstinsert(&e->dir, ret);
+	}
 	else
-		ft_lstinsert(&e->file, ret);
+	{
+		if (e->flag & FLAG_T)
+			ft_lstinsert_time(&e->file, ret, e->flag & FLAG_RV);
+		else
+			ft_lstinsert(&e->file, ret);
+	}
 }
 
 int				ls_recup_file(t_env *e, int init)

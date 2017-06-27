@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 17:59:18 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/26 09:36:08 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 07:41:57 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	pars_file(t_env *e, int argc, char **argv, int *i)
 	ft_bzero(&elem, sizeof(t_elem));
 	while (*i < argc)
 	{
-		ft_lstinsert_alphabet(&e->temp,
-					ft_lstnew(argv[*i], ft_strlen(argv[*i]) + 1));
+		ft_lstinsert_alphabet(&e->temp, ft_lstnew(argv[*i],
+						ft_strlen(argv[*i]) + 1), e->flag & FLAG_RV);
 		(*i)++;
 		e->nb_arg++;
 	}
@@ -45,6 +45,8 @@ static void	pars_flag(t_env *e, int argc, char **argv, int *i)
 				e->flag |= FLAG_T;
 			else if (argv[*i][i_in] == 'r')
 				e->flag |= FLAG_RV;
+			else if (argv[*i][i_in] == '1')
+				e->flag |= (1<<8);
 			else
 				ft_error("usage : ls [-Rlart] [file ...]\n");
 			i_in++;

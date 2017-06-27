@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:46 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/26 09:20:01 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 07:42:31 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct	s_elem
 	size_t		ind_curf;
 	size_t		size;
 	time_t		atime;
+	time_t		mtime;
 	size_t		nlink;
 	size_t		blocks;
 	char		*p_name;
@@ -80,7 +81,8 @@ typedef struct	s_env
 
 t_list			*ft_lst_remove_index(t_list **lst, size_t index);
 t_list			*ft_lst_remove(t_list **lst, t_list *remove);
-void			ft_lstinsert_alphabet(t_list **lst, t_list *new);
+void			ft_lstinsert_alphabet(t_list **lst, t_list *new, int reverse);
+void			ft_lstinsert_time(t_list **lst, t_list *new, int reverse);
 
 
 void			pars_arg(t_env *e, int argc, char **argv, int *i);

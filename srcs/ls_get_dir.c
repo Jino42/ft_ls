@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 07:28:53 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/26 07:35:36 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 07:41:40 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int		ls_add_to_list(t_env *e, t_elem *elem, struct dirent *dir)
 	if (!(e->flag & FLAG_A) && dir->d_name[0] == '.')
 		return (0);
 	temp = ft_sprintf("%s/%s", elem->path, dir->d_name);
-	ft_lstinsert_alphabet(&e->temp, ft_lstnew(temp, ft_strlen(temp) + 1));
+	ft_lstinsert_alphabet(&e->temp, ft_lstnew(temp, ft_strlen(temp) + 1),
+					e->flag & FLAG_RV);
 	ft_strdel(&temp);
 	return (1);
 }

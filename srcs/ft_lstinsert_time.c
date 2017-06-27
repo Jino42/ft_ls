@@ -1,52 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstinsert_alphabet.c                            :+:      :+:    :+:   */
+/*   ft_lstinsert_time.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/21 23:39:15 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 07:41:35 by ntoniolo         ###   ########.fr       */
+/*   Created: 2017/06/27 00:54:07 by ntoniolo          #+#    #+#             */
+/*   Updated: 2017/06/27 07:41:37 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-static int	ret_dif_ascii(char *str, char *str2, int reverse)
-{
-	int i;
-
-	i = 0;
-	while (str[i] && str2[i])
-	{
-		while (str[i] == '.' && str2[i] == '.')
-			i++;
-		if (str[i] != str2[i])
-		{
-			if (reverse)
-			{
-				return (str2[i] - str[i]);
-			}
-			else
-				return (str[i] - str2[i]);
-		}
-		i++;
-	}
-	if (!reverse)
-	{
-		if (!str[i])
-			return (-1);
-		else
-			return (1);
-	}
-	else
-	{
-		if (!str[i])
-			return (1);
-		else
-			return (-1);
-	}
-}
 
 static void	init(t_list **lst, t_list **past, t_list **cur, t_list *new)
 {
@@ -56,7 +20,7 @@ static void	init(t_list **lst, t_list **past, t_list **cur, t_list *new)
 		*lst = new;
 }
 
-void		ft_lstinsert_alphabet(t_list **lst, t_list *new, int reverse)
+void		ft_lstinsert_time(t_list **lst, t_list *new, int reverse)
 {
 	t_list *past;
 	t_list *cur;
@@ -66,8 +30,16 @@ void		ft_lstinsert_alphabet(t_list **lst, t_list *new, int reverse)
 	init(lst, &past, &cur, new);
 	while (cur)
 	{
-		if (ret_dif_ascii(((char*)cur->content),
-					((char*)new->content), reverse) > 0)
+		if (!reverse && ((t_elem*)cur->content)->atime - ((t_elem*)new->content)->atime < 0)
+		{
+			new->next = cur;
+			if (past)
+				past->next = new;
+			else
+				*lst = new;
+			return ;
+		}
+		else if (reverse && ((t_elem*)cur->content)->atime - ((t_elem*)new->content)->atime > 0)
 		{
 			new->next = cur;
 			if (past)
