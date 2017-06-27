@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 17:59:18 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 09:24:47 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 09:36:23 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ static void	pars_flag(t_env *e, int argc, char **argv, int *i)
 	{
 		if (!ft_strallcmp(argv[*i], "--"))
 		{
-			option_ = 1;
-			return ;
+			if (!option_)
+				option_ = 1;
+			else
+				return ;
 		}
 		else
 		{
