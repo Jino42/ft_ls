@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:55:33 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 09:29:40 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 10:03:15 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,31 @@ static void		ls_max_print(t_list *lst, t_size_m *size_m)
 	size_m->nlink_max = count_nb(size_m->nlink_max);
 }
 
+static void		print_file_init(t_env *e, t_list *l, t_size_m *size_m)
+{
+	t_elem *elem;
+	t_list		*save;
+	t_list		*ret;
+
+	while (l)
+	{
+		elem = l->content;
+		elem->ind_curf = 0;
+		if (e->flag & FLAG_L)
+			print_option_l(e, elem, size_m);
+		else
+			print_file(e, elem);
+		save = l;
+		l = l->next;
+		ret = ft_lst_remove_index(&save, 0);
+		ret->next = NULL;
+		if (ret)
+			ls_free_elem(&ret);
+	}
+	e->file = NULL;
+}
+
+
 void			ls_print(t_env *e, t_list *l, int dir)
 {
 	t_elem		*elem;
@@ -103,6 +128,11 @@ void			ls_print(t_env *e, t_list *l, int dir)
 	//size_m.p_max, size_m.g_max, size_m.size_max, size_m.nlink_max);
 	if (!e->cur_dir)
 		print_not_here(e);
+	if (dir)
+	{
+		print_file_init(e, l, &size_m);
+		return ;
+	}
 	if (e->cur_dir)
 		ft_printf("%s:\n", ((t_elem*)e->dir->content)->path);
 	else if (e->nb_arg > 1)

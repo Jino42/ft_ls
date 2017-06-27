@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:16 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 09:29:46 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 09:46:38 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,17 @@ int			main(int argc, char **argv)
 {
 	t_env	e;
 	int		i;
+//	t_list	*ret;
 
 	ft_bzero(&e, sizeof(t_env));
 	pars_arg(&e, argc, argv, &i);
 	ls_recup_file(&e, 1);
-	//	ls_recup_file_from_arg(&e);
+	ls_print(&e, e.file, 1);
+//	if (e.dir)
+//		ret = ft_lst_remove_index(&e.dir, 0);
+//	if (ret)
+//		ls_free_elem(&ret);
+
 	if (!(ls_loop(&e)))
 	{
 		ft_putstr_fd("Error ?\n", 2);
