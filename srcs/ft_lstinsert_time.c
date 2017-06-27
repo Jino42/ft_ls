@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 00:54:07 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 07:41:37 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 08:10:52 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		ft_lstinsert_time(t_list **lst, t_list *new, int reverse)
 	init(lst, &past, &cur, new);
 	while (cur)
 	{
-		if (!reverse && ((t_elem*)cur->content)->atime - ((t_elem*)new->content)->atime < 0)
+		if (!reverse && ((t_elem*)cur->content)->mtime - ((t_elem*)new->content)->mtime < 0)
 		{
 			new->next = cur;
 			if (past)
@@ -39,7 +39,7 @@ void		ft_lstinsert_time(t_list **lst, t_list *new, int reverse)
 				*lst = new;
 			return ;
 		}
-		else if (reverse && ((t_elem*)cur->content)->atime - ((t_elem*)new->content)->atime > 0)
+		else if (reverse && ((t_elem*)cur->content)->mtime - ((t_elem*)new->content)->mtime > 0)
 		{
 			new->next = cur;
 			if (past)

@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:46 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 07:42:31 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 08:08:38 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct	s_elem
 	size_t		size;
 	time_t		atime;
 	time_t		mtime;
+	time_t		ctime;
 	size_t		nlink;
 	size_t		blocks;
 	char		*p_name;

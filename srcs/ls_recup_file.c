@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:47:55 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 07:41:47 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 09:24:34 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void		ls_recup_current_dir(t_env *e)
 	t_list		*ret;
 
 	ret = NULL;
-	if (!e->file && !e->dir)
+	if (!e->file && !e->dir && !e->temp)
 	{
 		stat(("."), &buff);
 		ret = ls_stat_to_list(e, buff, ft_strdup("."));
@@ -86,6 +86,8 @@ int				ls_recup_file(t_env *e, int init)
 	struct stat	buff;
 
 	lst = e->temp;
+	if (init)
+		ls_recup_current_dir(e);
 	while (lst)
 	{
 		ft_bzero(&buff, sizeof(struct stat));
@@ -102,7 +104,5 @@ int				ls_recup_file(t_env *e, int init)
 		}
 	}
 	ls_free_temp(&e->temp);
-	if (init)
-		ls_recup_current_dir(e);
 	return (1);
 }

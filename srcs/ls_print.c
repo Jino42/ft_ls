@@ -6,11 +6,24 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:55:33 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 07:41:45 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 09:29:40 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static void		print_not_here(t_env *e)
+{
+	t_list *lst;
+
+	lst = e->not_here;
+	while (lst)
+	{
+		ft_dprintf(2, "ls: %s: No such file or directory\n", (char*)lst->content);
+		lst = lst->next;
+	}
+	ls_free_temp(&e->not_here);
+}
 
 static void		print_file(t_env *e, t_elem *elem)
 {
@@ -24,7 +37,7 @@ static void		print_option_l(t_env *e, t_elem *elem, t_size_m *size_m)
 	char	*ret_time;
 
 	(void)e;
-	ret_time = ctime((const time_t*)(&elem->atime));
+	ret_time = ctime((const time_t*)(&elem->ctime));
 	ft_printf("%s %*li %-*s  %-*s %*li %.12s %s",
 		elem->mode,
 		size_m->nlink_max + 1, elem->nlink,
@@ -88,6 +101,8 @@ void			ls_print(t_env *e, t_list *l, int dir)
 	ls_max_print(e->file, &size_m);
 	//ft_printf("\033[33mSize max : P[%li] G[%li] S[%i] L[%li]\n\033[0m",
 	//size_m.p_max, size_m.g_max, size_m.size_max, size_m.nlink_max);
+	if (!e->cur_dir)
+		print_not_here(e);
 	if (e->cur_dir)
 		ft_printf("%s:\n", ((t_elem*)e->dir->content)->path);
 	else if (e->nb_arg > 1)
