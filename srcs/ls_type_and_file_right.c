@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:59:16 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 07:41:52 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 12:20:23 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,12 @@ static void	right_usr(ssize_t st_mode, char *tab)
 	if (S_IRUSR & st_mode)
 		tab[NUM_USR + NUM_R] = 'r';
 	if (S_ISUID & st_mode)
-		tab[NUM_USR + NUM_X] = 'S';
+	{
+		if (S_IXUSR & st_mode)
+			tab[NUM_USR + NUM_X] = 's';
+		else
+			tab[NUM_USR + NUM_X] = 'S';
+	}
 }
 
 static void	right_grp(ssize_t st_mode, char *tab)
@@ -39,7 +44,12 @@ static void	right_grp(ssize_t st_mode, char *tab)
 	if (S_IRGRP & st_mode)
 		tab[NUM_GRP + NUM_R] = 'r';
 	if (S_ISGID & st_mode)
-		tab[NUM_GRP + NUM_X] = 'S';
+	{
+		if (S_IXGRP & st_mode)
+			tab[NUM_GRP + NUM_X] = 's';
+		else
+			tab[NUM_GRP + NUM_X] = 'S';
+	}
 }
 
 static void	right_oth(ssize_t st_mode, char *tab)
@@ -51,7 +61,12 @@ static void	right_oth(ssize_t st_mode, char *tab)
 	if (S_IROTH & st_mode)
 		tab[NUM_OTH + NUM_R] = 'r';
 	if (S_ISVTX & st_mode)
-		tab[NUM_OTH + NUM_X] = 't';
+	{
+		if (S_IXOTH & st_mode)
+			tab[NUM_OTH + NUM_X] = 't';
+		else
+			tab[NUM_OTH + NUM_X] = 'T';
+	}
 }
 
 static void	type_of_file(ssize_t st_mode, char *tab)

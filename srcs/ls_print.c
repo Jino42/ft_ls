@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:55:33 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 10:03:15 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 12:31:35 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,11 @@ static void		ls_max_print(t_list *lst, t_size_m *size_m)
 		lst = lst->next;
 	}
 	size_m->size_max = count_nb(size_m->size_max);
+	if (size_m->size_max == 0)
+		size_m->size_max++;
 	size_m->nlink_max = count_nb(size_m->nlink_max);
+	if (size_m->nlink_max == 0)
+		size_m->nlink_max++;
 }
 
 static void		print_file_init(t_env *e, t_list *l, t_size_m *size_m)
@@ -137,7 +141,7 @@ void			ls_print(t_env *e, t_list *l, int dir)
 		ft_printf("%s:\n", ((t_elem*)e->dir->content)->path);
 	else if (e->nb_arg > 1)
 		ft_printf("%s:\n", ((t_elem*)e->dir->content)->path);
-	if (e->flag & FLAG_L)
+	if (e->flag & FLAG_L && e->file)
 		ft_printf("total %li\n", size_m.total_blocks);
 	while (l)
 	{

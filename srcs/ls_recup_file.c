@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:47:55 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 09:24:34 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 12:20:52 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int				ls_recup_file(t_env *e, int init)
 		ft_bzero(&buff, sizeof(struct stat));
 		save = lst;
 		lst = lst->next;
-		if (stat(((char*)save->content), &buff) == -1)
+		if (stat(((char*)save->content), &buff) == -1 && lstat(((char*)save->content), &buff) == -1)
 			ft_lstinsert(&e->not_here, ft_lst_remove(&e->temp, save));
 		else
 		{

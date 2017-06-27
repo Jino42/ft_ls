@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 17:59:18 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 09:36:23 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/27 10:11:22 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	pars_flag(t_env *e, int argc, char **argv, int *i)
 
 	option_ = 0;
 	while (*i < argc && argv[*i][0] == '-' &&
-			argv[*i][1] != '\0')
+			argv[*i][1] != '\0' && !option_)
 	{
 		if (!ft_strallcmp(argv[*i], "--"))
 		{
@@ -58,6 +58,8 @@ static void	pars_flag(t_env *e, int argc, char **argv, int *i)
 			else
 				return ;
 		}
+		else if (option_ && !ft_strcmp(argv[*i], "---"))
+			return;
 		else
 		{
 			i_in = 1;
