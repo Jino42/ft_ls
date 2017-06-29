@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:46 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 08:08:38 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/29 10:23:49 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # define NUM_X 2
 # define ALL_R 7894898
 
+# define MAX_YEARS 253375970400
+# define PRINT_DATE 15778800
+
 # define FLAG_L (1 << 1)
 # define FLAG_R (1 << 2)
 # define FLAG_A (1 << 3)
@@ -49,6 +52,7 @@ typedef struct	s_size_m
 	size_t g_max;
 	size_t size_max;
 	size_t nlink_max;
+	size_t years_max;
 	size_t total_blocks;
 }				t_size_m;
 

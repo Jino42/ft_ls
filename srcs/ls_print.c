@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:55:33 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 12:31:35 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/29 10:23:41 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,23 @@ static void		print_file(t_env *e, t_elem *elem)
 static void		print_option_l(t_env *e, t_elem *elem, t_size_m *size_m)
 {
 	char	*ret_time;
+	time_t	cur;
 
 	(void)e;
-	ret_time = ctime((const time_t*)(&elem->ctime));
-	ft_printf("%s %*li %-*s  %-*s %*li %.12s %s",
+	ret_time = ctime((const time_t*)(&elem->mtime));
+	cur = time(NULL);
+	//////////////MAX_YEAR
+	if (cur - elem->mtime > PRINT_DATE)
+		ft_strcpy(&ret_time[11], &ret_time[19]);
+	else if (cur - elem->mtime < 0)
+		ft_strcpy(&ret_time[10], &ret_time[22]);
+	ft_printf("%s %*li %-*s  %-*s %*li %.*s %s",
 		elem->mode,
 		size_m->nlink_max + 1, elem->nlink,
 		size_m->p_max, elem->p_name,
 		size_m->g_max, elem->g_name,
 		size_m->size_max + 1, elem->size,
-		ret_time + 4,
+		12 + size_m->years_max, ret_time + 4,
 		&elem->path[elem->ind_curf]);
 	if (elem->mode[NUM_TYPE] == 'l')
 		ft_printf("%s", elem->r_lnk);
@@ -82,6 +89,8 @@ static void		ls_max_print(t_list *lst, t_size_m *size_m)
 		temp = ft_strlen(elem->g_name);
 		if (temp > size_m->g_max)
 			size_m->g_max = temp;
+		if (elem->mtime > MAX_YEARS)
+			size_m->years_max = 1;
 		size_m->total_blocks += elem->blocks;
 		lst = lst->next;
 	}
@@ -135,6 +144,8 @@ void			ls_print(t_env *e, t_list *l, int dir)
 	if (dir)
 	{
 		print_file_init(e, l, &size_m);
+		if (l && e->dir)
+			ft_putchar('\n');
 		return ;
 	}
 	if (e->cur_dir)
