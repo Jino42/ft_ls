@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 23:47:55 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 12:20:52 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/29 11:29:07 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static void		ls_initialisation_list(t_env *e, struct stat buff, t_list *save)
 
 	ret = NULL;
 	ret = ls_stat_to_list(e, buff, ft_strdup((char*)save->content));
-	save = ft_lst_remove(&e->temp, save);
-	ft_memdel((void**)&save);
+//	save = ft_lst_remove(&e->temp, save);
+//	ft_memdel((void**)&save);
 	if (buff.st_mode & S_IFDIR)
 	{
 		if (e->flag & FLAG_T)
@@ -93,7 +93,8 @@ int				ls_recup_file(t_env *e, int init)
 		ft_bzero(&buff, sizeof(struct stat));
 		save = lst;
 		lst = lst->next;
-		if (stat(((char*)save->content), &buff) == -1 && lstat(((char*)save->content), &buff) == -1)
+		if (stat(((char*)save->content), &buff) == -1 &&
+									lstat(((char*)save->content), &buff) == -1)
 			ft_lstinsert(&e->not_here, ft_lst_remove(&e->temp, save));
 		else
 		{

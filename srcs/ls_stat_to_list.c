@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 08:02:53 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 08:09:12 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/29 11:12:32 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ static size_t	find_last_slash(t_elem *elem)
 	return (i);
 }
 
+static void		ls_put_basic(t_elem *elem, struct stat buff)
+{
+	elem->size = buff.st_size;
+	elem->atime = buff.st_atime;
+	elem->ctime = buff.st_ctime;
+	elem->mtime = buff.st_mtime;
+	elem->nlink = buff.st_nlink;
+	elem->blocks = buff.st_blocks;
+}
+
 t_list			*ls_stat_to_list(t_env *e, struct stat buff, char *path)
 {
 	t_elem			elem;
@@ -41,12 +51,7 @@ t_list			*ls_stat_to_list(t_env *e, struct stat buff, char *path)
 	elem.path = path;
 	ls_type_and_file_right(&elem, buff.st_mode, &buff);
 	elem.ind_curf = find_last_slash(&elem);
-	elem.size = buff.st_size;
-	elem.atime = buff.st_atime;
-	elem.ctime = buff.st_ctime;
-	elem.mtime = buff.st_mtime;
-	elem.nlink = buff.st_nlink;
-	elem.blocks = buff.st_blocks;
+	ls_put_basic(&elem, buff);
 	passwd = getpwuid(buff.st_uid);
 	group = getgrgid(buff.st_gid);
 	if (passwd)

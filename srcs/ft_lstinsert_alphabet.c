@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 23:39:15 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 07:41:35 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/29 11:09:33 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,9 @@ static int	ret_dif_ascii(char *str, char *str2, int reverse)
 		}
 		i++;
 	}
-	if (!reverse)
-	{
-		if (!str[i])
-			return (-1);
-		else
-			return (1);
-	}
-	else
-	{
-		if (!str[i])
-			return (1);
-		else
-			return (-1);
-	}
+	if (!str[i])
+		return (reverse == 0 ? -1 : 1);
+	return (0);
 }
 
 static void	init(t_list **lst, t_list **past, t_list **cur, t_list *new)

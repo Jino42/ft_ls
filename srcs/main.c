@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:16 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 09:46:38 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/29 11:30:14 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ int			main(int argc, char **argv)
 	ls_free_temp(&e.temp);
 	ls_free_temp(&e.not_here);
 	ls_free_elem(&e.file);
+	ls_free_elem(&e.temp_dir);
 	ls_free_elem(&e.dir);
-	//	ft_bzero(&e, sizeof(t_env));
-	//	while (1);
+	//ft_bzero(&e, sizeof(t_env));
+	//while (1);
 	return (1);
 }

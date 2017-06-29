@@ -6,7 +6,7 @@
 #    By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 18:45:43 by ntoniolo          #+#    #+#              #
-#    Updated: 2017/06/27 07:42:41 by ntoniolo         ###   ########.fr        #
+#    Updated: 2017/06/29 11:10:01 by ntoniolo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ SRC = main.c \
 	  ft_lst_remove.c \
 	  ls_print.c \
 	  ls_loop.c \
-	  ls_recup_file_from_arg.c \
 	  ls_recup_file.c \
 	  ls_free_env.c \
 	  pars_arg.c
