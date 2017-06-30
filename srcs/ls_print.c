@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:55:33 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/29 11:24:40 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/30 11:33:00 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static void		print_option_l(t_env *e, t_elem *elem, t_size_m *size_m)
 	if (elem->mode[NUM_TYPE] == 'l')
 		ft_printf("%s", elem->r_lnk);
 	ft_putchar('\n');
+	if (elem->mode[NUM_TYPE] == 'c')
+		ft_printf("Ici : Major[%i] Minor [%i]\n", (int)((elem->st_dev >> 24)&0xff), (int)((elem->st_dev)&0xff));//minor(elem->st_dev));//(int)(((u_int)elem->st_dev >> 8)&0xff));
 }
 
 static size_t	count_nb(size_t nb)

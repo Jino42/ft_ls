@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 08:02:53 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/29 11:12:32 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/30 11:17:27 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void		ls_put_basic(t_elem *elem, struct stat buff)
 	elem->mtime = buff.st_mtime;
 	elem->nlink = buff.st_nlink;
 	elem->blocks = buff.st_blocks;
+	elem->st_dev = buff.st_rdev;
 }
 
 t_list			*ls_stat_to_list(t_env *e, struct stat buff, char *path)
