@@ -60,6 +60,7 @@ typedef struct	s_size_m
 
 typedef struct	s_elem
 {
+	char		right;
 	char		*path;
 	char		mode[11];
 	size_t		ind_curf;
@@ -93,7 +94,7 @@ void			ft_lstinsert_alphabet(t_list **lst, t_list *new, int reverse);
 void			ft_lstinsert_time(t_list **lst, t_list *new, int reverse);
 
 
-void			pars_arg(t_env *e, int argc, char **argv, int *i);
+int				pars_arg(t_env *e, int argc, char **argv, int *i);
 int				ls_recup_file(t_env *e, int init);
 int				ls_get_dir(t_env *e, t_elem *elem);
 t_list			*ls_stat_to_list(t_env *e, struct stat buff, char *path);

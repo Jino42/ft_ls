@@ -175,6 +175,8 @@ void			ls_print(t_env *e, t_list *l, int dir)
 		ft_printf("%s:\n", ((t_elem*)e->dir->content)->path);
 	if (e->flag & FLAG_L && e->file)
 		ft_printf("total %li\n", size_m.total_blocks);
+	if (((t_elem*)e->dir->content)->right)
+		ft_dprintf(2, "ls: %s: Permission denied\n", &((t_elem*)e->dir->content)->path[((t_elem*)e->dir->content)->ind_curf]);
 	while (l)
 	{
 		elem = l->content;

@@ -95,7 +95,7 @@ int				ls_recup_file(t_env *e, int init)
 		lst = lst->next;
 		if (stat(((char*)save->content), &buff) == -1 &&
 									lstat(((char*)save->content), &buff) == -1)
-			ft_lstinsert(&e->not_here, ft_lst_remove(&e->temp, save));
+			ft_lstinsert_alphabet(&e->not_here, ft_lst_remove(&e->temp, save), 0);
 		else
 		{
 			if (init)

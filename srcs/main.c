@@ -32,7 +32,8 @@ int			main(int argc, char **argv)
 //	t_list	*ret;
 
 	ft_bzero(&e, sizeof(t_env));
-	pars_arg(&e, argc, argv, &i);
+	if (!(pars_arg(&e, argc, argv, &i)))
+		return (0);
 	ls_recup_file(&e, 1);
 	ls_print(&e, e.file, 1);
 //	if (e.dir)

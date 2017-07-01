@@ -33,7 +33,10 @@ int				ls_get_dir(t_env *e, t_elem *elem)
 	(void)e;
 	ptr = opendir(elem->path);
 	if (!ptr)
+	{
+		elem->right = 1;
 		return (0);
+	}
 	while ((dir = readdir(ptr)))
 		ls_add_to_list(e, elem, dir);
 	closedir(ptr);

@@ -12,18 +12,24 @@
 
 #include "ft_ls.h"
 
-static void	pars_file(t_env *e, int argc, char **argv, int *i)
+static int	pars_file(t_env *e, int argc, char **argv, int *i)
 {
-	t_elem elem;
+	t_elem	elem;
 
 	ft_bzero(&elem, sizeof(t_elem));
 	while (*i < argc)
 	{
+		if (argv[*i][0] == 0)
+		{
+			ft_dprintf(2, "ls: fts_open: No such file or directory\n");
+			return (0);
+		}
 		ft_lstinsert_alphabet(&e->temp, ft_lstnew(argv[*i],
-						ft_strlen(argv[*i]) + 1), e->flag & FLAG_RV);
-		(*i)++;
+					ft_strlen(argv[*i]) + 1), e->flag & FLAG_RV);
 		e->nb_arg++;
+		(*i)++;
 	}
+	return (1);
 }
 
 static int	ft_strallcmp(char *s1, char *s2)
@@ -42,7 +48,7 @@ static int	ft_strallcmp(char *s1, char *s2)
 	return (1);
 }
 
-static void	pars_flag(t_env *e, int argc, char **argv, int *i)
+static int	pars_flag(t_env *e, int argc, char **argv, int *i)
 {
 	int	i_in;
 	int	option_;
@@ -56,10 +62,10 @@ static void	pars_flag(t_env *e, int argc, char **argv, int *i)
 			if (!option_)
 				option_ = 1;
 			else
-				return ;
+				return (1);
 		}
 		else if (option_ && !ft_strcmp(argv[*i], "---"))
-			return;
+			return (1);
 		else
 		{
 			i_in = 1;
@@ -78,17 +84,25 @@ static void	pars_flag(t_env *e, int argc, char **argv, int *i)
 				else if (argv[*i][i_in] == '1')
 					e->flag |= (1<<8);
 				else
-					ft_error("usage : ls [-Rlart] [file ...]\n");
+				{
+					ft_dprintf(2, "ls: illegal option -- %c\n", argv[*i][i_in]);
+					ft_dprintf(2, "usage: ls [-Rlart] [file ...]\n");
+					return (0);
+				}
 				i_in++;
 			}
 		}
 		(*i)++;
 	}
+	return (1);
 }
 
-void		pars_arg(t_env *e, int argc, char **argv, int *i)
+int			pars_arg(t_env *e, int argc, char **argv, int *i)
 {
 	*i = 1;
-	pars_flag(e, argc, argv, i);
-	pars_file(e, argc, argv, i);
+	if (!(pars_flag(e, argc, argv, i)))
+		return (0);
+	if (!(pars_file(e, argc, argv, i)))
+		return (0);
+	return (1);
 }
