@@ -31,7 +31,7 @@ static void		ls_put_in_list(t_env *e, struct stat buff, t_list *save)
 	t_list	*ret;
 
 	ret = NULL;
-	ret = ls_stat_to_list(e, buff, ft_strdup((char*)save->content));
+	ret = ls_stat_to_list(e, buff, (char*)save->content);
 	if (buff.st_mode & S_IFDIR)
 	{
 		if (e->flag & FLAG_R || e->cur_dir)

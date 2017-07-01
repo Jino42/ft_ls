@@ -99,7 +99,7 @@ void		ls_type_and_file_right(t_elem *elem, ssize_t st_mode,
 		ft_bzero(temp, 1024);
 		if (!(readlink(elem->path, temp, sizeof(temp))))
 		{
-			perror("readlink");
+			ft_dprintf(2, "ls: fail readlink\n");
 			exit(0);
 		}
 		elem->r_lnk = ft_sprintf(" -> %s", temp);

@@ -144,6 +144,7 @@ static void		print_file_init(t_env *e, t_list *l, t_size_m *size_m)
 		if (ret)
 			ls_free_elem(&ret);
 	}
+//	ls_free_elem(&e->file);
 	e->file = NULL;
 }
 
@@ -188,8 +189,8 @@ void			ls_print(t_env *e, t_list *l, int dir)
 		l = l->next;
 		ret = ft_lst_remove_index(&save, 0);
 		ret->next = NULL;
-//		if (ret)
-//			ls_free_elem(&ret);
+		if (ret)
+			ls_free_elem(&ret);
 	}
 	e->file = NULL;
 }

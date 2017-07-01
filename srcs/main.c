@@ -40,7 +40,6 @@ int			main(int argc, char **argv)
 //		ret = ft_lst_remove_index(&e.dir, 0);
 //	if (ret)
 //		ls_free_elem(&ret);
-
 	if (!(ls_loop(&e)))
 	{
 		ft_putstr_fd("Error ?\n", 2);
@@ -54,7 +53,7 @@ int			main(int argc, char **argv)
 	ls_free_elem(&e.file);
 	ls_free_elem(&e.temp_dir);
 	ls_free_elem(&e.dir);
-	//ft_bzero(&e, sizeof(t_env));
-	//while (1);
+//	ft_bzero(&e, sizeof(t_env));
+//	while (1);
 	return (1);
 }
