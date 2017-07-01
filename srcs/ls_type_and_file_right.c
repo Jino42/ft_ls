@@ -91,14 +91,13 @@ void		ls_type_and_file_right(t_elem *elem, ssize_t st_mode,
 											struct stat *ptr_buff)
 {
 	struct stat	buff;
-	char		*temp;
+	char		temp[1024];
 
 	lstat(elem->path, &buff);
 	if ((buff.st_mode & S_IFMT) == S_IFLNK)
 	{
-		if (!(temp = (char *)ft_memalloc(buff.st_size + 1)))
-			exit(0);
-		if (!(readlink(elem->path, temp, buff.st_size + 1)))
+		ft_bzero(temp, 1024);
+		if (!(readlink(elem->path, temp, sizeof(temp))))
 		{
 			perror("readlink");
 			exit(0);

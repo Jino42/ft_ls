@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:46 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/29 11:10:06 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/06/30 10:52:52 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct	s_size_m
 	size_t nlink_max;
 	size_t years_max;
 	size_t total_blocks;
+	size_t minor_max;
+	size_t major_max;
 }				t_size_m;
 
 typedef struct	s_elem
@@ -70,6 +72,7 @@ typedef struct	s_elem
 	char		*p_name;
 	char		*g_name;
 	char		*r_lnk;
+	dev_t		st_dev;
 }				t_elem;
 
 typedef struct	s_env

@@ -45,19 +45,29 @@ static void		print_option_l(t_env *e, t_elem *elem, t_size_m *size_m)
 		ft_strcpy(&ret_time[11], &ret_time[19]);
 	else if (cur - elem->mtime < 0)
 		ft_strcpy(&ret_time[10], &ret_time[22]);
-	ft_printf("%s %*li %-*s  %-*s %*li %.*s %s",
+	ft_printf("%s %*li %-*s  %-*s ",
 		elem->mode,
 		size_m->nlink_max + 1, elem->nlink,
 		size_m->p_max, elem->p_name,
-		size_m->g_max, elem->g_name,
-		size_m->size_max + 1, elem->size,
-		12 + size_m->years_max, ret_time + 4,
-		&elem->path[elem->ind_curf]);
+		size_m->g_max, elem->g_name);
+	if (elem->mode[NUM_TYPE] == 'c' || elem->mode[NUM_TYPE] == 'b')
+	{
+		ft_printf("%*li, %*li %.*s %s",
+			size_m->major_max, ((elem->st_dev >> 24)&0xff),
+			size_m->minor_max, (int)((elem->st_dev) & 0xff),
+			12 + size_m->years_max, ret_time + 4,
+			&elem->path[elem->ind_curf]);
+	}
+	else
+	{
+		ft_printf("%*li %.*s %s",
+			size_m->size_max + 1, elem->size,
+			12 + size_m->years_max, ret_time + 4,
+			&elem->path[elem->ind_curf]);
+	}
 	if (elem->mode[NUM_TYPE] == 'l')
 		ft_printf("%s", elem->r_lnk);
 	ft_putchar('\n');
-	if (elem->mode[NUM_TYPE] == 'c')
-		ft_printf("Ici : Major[%i] Minor [%i]\n", (int)((elem->st_dev >> 24)&0xff), (int)((elem->st_dev)&0xff));//minor(elem->st_dev));//(int)(((u_int)elem->st_dev >> 8)&0xff));
 }
 
 static size_t	count_nb(size_t nb)
@@ -93,6 +103,10 @@ static void		ls_max_print(t_list *lst, t_size_m *size_m)
 			size_m->g_max = temp;
 		if (elem->mtime > MAX_YEARS)
 			size_m->years_max = 1;
+		if (((elem->st_dev >> 24)&0xff) > size_m->major_max)
+			size_m->major_max = ((elem->st_dev >> 24) & 0xff);
+		if ((elem->st_dev & 0xff) > size_m->minor_max)
+			size_m->minor_max = (elem->st_dev & 0xff);
 		size_m->total_blocks += elem->blocks;
 		lst = lst->next;
 	}
@@ -100,8 +114,13 @@ static void		ls_max_print(t_list *lst, t_size_m *size_m)
 	if (size_m->size_max == 0)
 		size_m->size_max++;
 	size_m->nlink_max = count_nb(size_m->nlink_max);
+	size_m->minor_max = count_nb(size_m->minor_max);
+	size_m->major_max = count_nb(size_m->major_max);
 	if (size_m->nlink_max == 0)
 		size_m->nlink_max++;
+	if (size_m->major_max)
+		size_m->major_max += 2;
+	size_m->size_max += size_m->major_max + size_m->minor_max;
 }
 
 static void		print_file_init(t_env *e, t_list *l, t_size_m *size_m)
