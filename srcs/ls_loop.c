@@ -29,8 +29,9 @@ int			is_not_cur(t_list *l)
 
 static void	ls_add_dir(t_env *e)
 {
-	t_list *l;
-	t_list *save;
+	t_list	*l;
+	t_list	*save;
+	t_list	*ret;
 
 	l = e->temp_dir;
 	while (l)
@@ -39,6 +40,13 @@ static void	ls_add_dir(t_env *e)
 		l = l->next;
 		if (is_not_cur(save))
 			ft_lstadd(&e->dir, save);
+		else
+		{
+			ret = ft_lst_remove_index(&save, 0);
+			ret->next = NULL;
+			if (ret)
+				ls_free_elem(&ret);
+		}
 	}
 	e->temp_dir = NULL;
 }
