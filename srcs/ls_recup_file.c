@@ -32,7 +32,7 @@ static void		ls_put_in_list(t_env *e, struct stat buff, t_list *save)
 
 	ret = NULL;
 	ret = ls_stat_to_list(e, buff, (char*)save->content);
-	if (buff.st_mode & S_IFDIR)
+	if (buff.st_mode & S_IFDIR && ((t_elem*)ret->content)->mode[NUM_TYPE] == 'd')
 	{
 		if (e->flag & FLAG_R || e->cur_dir)
 		{
