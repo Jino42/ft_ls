@@ -144,7 +144,6 @@ static void		print_file_init(t_env *e, t_list *l, t_size_m *size_m)
 		if (ret)
 			ls_free_elem(&ret);
 	}
-//	ls_free_elem(&e->file);
 	e->file = NULL;
 }
 
@@ -159,8 +158,6 @@ void			ls_print(t_env *e, t_list *l, int dir)
 	(void)dir;
 	ft_bzero(&size_m, sizeof(t_size_m));
 	ls_max_print(e->file, &size_m);
-	//ft_printf("\033[33mSize max : P[%li] G[%li] S[%i] L[%li]\n\033[0m",
-	//size_m.p_max, size_m.g_max, size_m.size_max, size_m.nlink_max);
 	if (!e->cur_dir)
 		print_not_here(e);
 	if (dir)

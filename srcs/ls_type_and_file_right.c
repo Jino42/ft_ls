@@ -97,15 +97,13 @@ void		ls_type_and_file_right(t_elem *elem, ssize_t st_mode,
 	if ((buff.st_mode & S_IFMT) == S_IFLNK)
 	{
 		ft_bzero(temp, 1024);
-		if (!(readlink(elem->path, temp, sizeof(temp))))
+		if ((readlink(elem->path, temp, sizeof(temp))))
 		{
-			ft_dprintf(2, "ls: fail readlink\n");
-			exit(0);
+			elem->r_lnk = ft_sprintf(" -> %s", temp);
+			elem->mode[NUM_TYPE] = 'l';
+			st_mode = buff.st_mode;
+			*ptr_buff = buff;
 		}
-		elem->r_lnk = ft_sprintf(" -> %s", temp);
-		elem->mode[NUM_TYPE] = 'l';
-		st_mode = buff.st_mode;
-		*ptr_buff = buff;
 	}
 	else
 		type_of_file(st_mode, elem->mode);
