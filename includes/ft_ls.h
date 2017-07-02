@@ -95,13 +95,18 @@ void			ft_lstinsert_time(t_list **lst, t_list *new, int reverse);
 
 
 int				pars_arg(t_env *e, int argc, char **argv, int *i);
-int				ls_recup_file(t_env *e, int init);
+int				ls_recup_file(t_env *e, int init, t_list *lst);
 int				ls_get_dir(t_env *e, t_elem *elem);
 t_list			*ls_stat_to_list(t_env *e, struct stat buff, char *path);
 
 void			ls_type_and_file_right(t_elem *elem, ssize_t st_mode, struct stat *ptr_buff);
 int				ls_loop(t_env *e);
 void			ls_print(t_env *e, t_list *lst, int dir);
+void			ls_print_l(t_env *e, t_elem *elem, t_size_m *size_m);
+void			ls_max_print(t_list *lst, t_size_m *size_m);
+void			print_file_init(t_env *e, t_list *l, t_size_m *size_m);
+void			print_file(t_env *e, t_elem *elem);
+void			print_not_here(t_env *e);
 
 void			ls_free_temp(t_list **lst);
 void			ls_free_elem(t_list	**lst);

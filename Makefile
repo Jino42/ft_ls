@@ -25,10 +25,13 @@ SRC = main.c \
 	  ls_stat_to_list.c \
 	  ft_lst_remove.c \
 	  ls_print.c \
+	  ls_print_basic.c \
+	  ls_print_l.c \
 	  ls_loop.c \
+	  ls_max_print.c \
 	  ls_recup_file.c \
 	  ls_free_env.c \
-	  pars_arg.c
+	  ls_pars_arg.c
 
 SRC_DIR = srcs/
 

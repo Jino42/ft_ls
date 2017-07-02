@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_arg.c                                         :+:      :+:    :+:   */
+/*   ls_pars_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -21,7 +21,7 @@ static int	pars_file(t_env *e, int argc, char **argv, int *i)
 	{
 		if (argv[*i][0] == 0)
 		{
-			ft_dprintf(2, "ls: fts_open: No such file or directory\n");
+			ft_dprintf(2, "./ft_ls: fts_open: No such file or directory\n");
 			return (0);
 		}
 		ft_lstinsert_alphabet(&e->temp, ft_lstnew(argv[*i],
@@ -48,9 +48,36 @@ static int	ft_strallcmp(char *s1, char *s2)
 	return (1);
 }
 
-static int	pars_flag(t_env *e, int argc, char **argv, int *i)
+static int	pars_flag(t_env *e, int i, char **argv)
 {
-	int	i_in;
+	int i_in;
+
+	i_in = 1;
+	while (argv[i][i_in])
+	{
+		if (argv[i][i_in] == 'l')
+			e->flag |= FLAG_L;
+		else if (argv[i][i_in] == 'R')
+			e->flag |= FLAG_R;
+		else if (argv[i][i_in] == 'a')
+			e->flag |= FLAG_A;
+		else if (argv[i][i_in] == 't')
+			e->flag |= FLAG_T;
+		else if (argv[i][i_in] == 'r')
+			e->flag |= FLAG_RV;
+		else if (argv[i][i_in] != '1')
+		{
+			ft_dprintf(2, "ls: illegal option -- %c\n", argv[i][i_in]);
+			ft_dprintf(2, "usage: ls [-Rlart] [file ...]\n");
+			return (0);
+		}
+		i_in++;
+	}
+	return (1);
+}
+
+static int	dir_arg(t_env *e, int argc, char **argv, int *i)
+{
 	int	option_;
 
 	option_ = 0;
@@ -68,29 +95,8 @@ static int	pars_flag(t_env *e, int argc, char **argv, int *i)
 			return (1);
 		else
 		{
-			i_in = 1;
-			while (argv[*i][i_in])
-			{
-				if (argv[*i][i_in] == 'l')
-					e->flag |= FLAG_L;
-				else if (argv[*i][i_in] == 'R')
-					e->flag |= FLAG_R;
-				else if (argv[*i][i_in] == 'a')
-					e->flag |= FLAG_A;
-				else if (argv[*i][i_in] == 't')
-					e->flag |= FLAG_T;
-				else if (argv[*i][i_in] == 'r')
-					e->flag |= FLAG_RV;
-				else if (argv[*i][i_in] == '1')
-					e->flag |= (1<<8);
-				else
-				{
-					ft_dprintf(2, "ls: illegal option -- %c\n", argv[*i][i_in]);
-					ft_dprintf(2, "usage: ls [-Rlart] [file ...]\n");
-					return (0);
-				}
-				i_in++;
-			}
+			if (!(pars_flag(e, *i, argv)))
+				return (0);
 		}
 		(*i)++;
 	}
@@ -100,7 +106,7 @@ static int	pars_flag(t_env *e, int argc, char **argv, int *i)
 int			pars_arg(t_env *e, int argc, char **argv, int *i)
 {
 	*i = 1;
-	if (!(pars_flag(e, argc, argv, i)))
+	if (!(dir_arg(e, argc, argv, i)))
 		return (0);
 	if (!(pars_file(e, argc, argv, i)))
 		return (0);

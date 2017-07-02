@@ -12,47 +12,33 @@
 
 #include "ft_ls.h"
 
-static void		print_not_here(t_env *e)
+static void	ls_free_env(t_env *e)
 {
-	t_list *lst;
-
-	lst = e->not_here;
-	while (lst)
-	{
-		ft_dprintf(2, "ls: %s: No such file or directory\n", (char*)lst->content);
-		lst = lst->next;
-	}
+	ls_free_temp(&e->temp);
 	ls_free_temp(&e->not_here);
+	ls_free_elem(&e->file);
+	ls_free_elem(&e->temp_dir);
+	ls_free_elem(&e->dir);
 }
 
 int			main(int argc, char **argv)
 {
 	t_env	e;
 	int		i;
-//	t_list	*ret;
 
 	ft_bzero(&e, sizeof(t_env));
 	if (!(pars_arg(&e, argc, argv, &i)))
 		return (0);
-	ls_recup_file(&e, 1);
+	ls_recup_file(&e, 1, e.temp);
 	ls_print(&e, e.file, 1);
-//	if (e.dir)
-//		ret = ft_lst_remove_index(&e.dir, 0);
-//	if (ret)
-//		ls_free_elem(&ret);
 	if (!(ls_loop(&e)))
 	{
 		ft_putstr_fd("Error ?\n", 2);
 		return (0);
 	}
-	///////tmp
 	if (e.not_here)
 		print_not_here(&e);
-	ls_free_temp(&e.temp);
-	ls_free_temp(&e.not_here);
-	ls_free_elem(&e.file);
-	ls_free_elem(&e.temp_dir);
-	ls_free_elem(&e.dir);
+	ls_free_env(&e);
 //	ft_bzero(&e, sizeof(t_env));
 //	while (1);
 	return (1);

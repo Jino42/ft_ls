@@ -61,7 +61,7 @@ int			ls_loop(t_env *e)
 			;
 		if (e->cur_dir)
 			ft_putchar('\n');
-		ls_recup_file(e, 0);
+		ls_recup_file(e, 0, e->temp);
 		ls_print(e, e->file, 0);
 		ret = ft_lst_remove_index(&e->dir, 0);
 		if (ret)

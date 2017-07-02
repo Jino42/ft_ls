@@ -30,9 +30,9 @@ static void		ls_put_in_list(t_env *e, struct stat buff, t_list *save)
 {
 	t_list	*ret;
 
-	ret = NULL;
 	ret = ls_stat_to_list(e, buff, (char*)save->content);
-	if (buff.st_mode & S_IFDIR && ((t_elem*)ret->content)->mode[NUM_TYPE] == 'd')
+	if (buff.st_mode & S_IFDIR &&
+			((t_elem*)ret->content)->mode[NUM_TYPE] == 'd')
 	{
 		if (e->flag & FLAG_R || e->cur_dir)
 		{
@@ -61,8 +61,6 @@ static void		ls_initialisation_list(t_env *e, struct stat buff, t_list *save)
 
 	ret = NULL;
 	ret = ls_stat_to_list(e, buff, ft_strdup((char*)save->content));
-//	save = ft_lst_remove(&e->temp, save);
-//	ft_memdel((void**)&save);
 	if (buff.st_mode & S_IFDIR)
 	{
 		if (e->flag & FLAG_T)
@@ -79,13 +77,11 @@ static void		ls_initialisation_list(t_env *e, struct stat buff, t_list *save)
 	}
 }
 
-int				ls_recup_file(t_env *e, int init)
+int				ls_recup_file(t_env *e, int init, t_list *lst)
 {
-	t_list		*lst;
 	t_list		*save;
 	struct stat	buff;
 
-	lst = e->temp;
 	if (init)
 		ls_recup_current_dir(e);
 	while (lst)
@@ -95,7 +91,8 @@ int				ls_recup_file(t_env *e, int init)
 		lst = lst->next;
 		if (stat(((char*)save->content), &buff) == -1 &&
 									lstat(((char*)save->content), &buff) == -1)
-			ft_lstinsert_alphabet(&e->not_here, ft_lst_remove(&e->temp, save), 0);
+			ft_lstinsert_alphabet(&e->not_here,
+									ft_lst_remove(&e->temp, save), 0);
 		else
 		{
 			if (init)
