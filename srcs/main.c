@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:53:16 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/29 11:30:14 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/07/05 22:30:26 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,5 @@ int			main(int argc, char **argv)
 	if (e.not_here)
 		print_not_here(&e);
 	ls_free_env(&e);
-//	ft_bzero(&e, sizeof(t_env));
-//	while (1);
 	return (1);
 }

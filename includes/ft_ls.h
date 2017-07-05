@@ -13,17 +13,17 @@
 #ifndef FT_LS_H
 # define FT_LS_H
 
-#include "../libft/includes/ft_printf.h"
-#include <sys/stat.h> 
-#include <pwd.h>
-#include <grp.h>
-#include <time.h>
-#include <dirent.h>
-#include <sys/xattr.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <errno.h>
-#include <stdio.h>
+# include "../libft/includes/ft_printf.h"
+# include <sys/stat.h>
+# include <pwd.h>
+# include <grp.h>
+# include <time.h>
+# include <dirent.h>
+# include <sys/xattr.h>
+# include <sys/types.h>
+# include <unistd.h>
+# include <errno.h>
+# include <stdio.h>
 
 # define NUM_TYPE 0
 # define NUM_USR 1
@@ -93,13 +93,13 @@ t_list			*ft_lst_remove(t_list **lst, t_list *remove);
 void			ft_lstinsert_alphabet(t_list **lst, t_list *new, int reverse);
 void			ft_lstinsert_time(t_list **lst, t_list *new, int reverse);
 
-
 int				pars_arg(t_env *e, int argc, char **argv, int *i);
 int				ls_recup_file(t_env *e, int init, t_list *lst);
 int				ls_get_dir(t_env *e, t_elem *elem);
 t_list			*ls_stat_to_list(t_env *e, struct stat buff, char *path);
 
-void			ls_type_and_file_right(t_elem *elem, ssize_t st_mode, struct stat *ptr_buff);
+void			ls_type_and_file_right(t_elem *elem, ssize_t st_mode,
+													struct stat *ptr_buff);
 int				ls_loop(t_env *e);
 void			ls_print(t_env *e, t_list *lst, int dir);
 void			ls_print_l(t_env *e, t_elem *elem, t_size_m *size_m);
