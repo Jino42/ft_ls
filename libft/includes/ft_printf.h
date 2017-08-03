@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 17:19:30 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 14:55:51 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/08/03 05:20:29 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@
 # define MOD_LL	6
 # define MOD_LLL 7
 
-# define BUFF_SIZE_P 16
+# define FLAG_S (1 << 1)
+# define FLAG_B (1 << 2)
+
+# define BUFF_SIZE_P 300
 
 typedef struct	s_option
 {
@@ -54,17 +57,19 @@ typedef struct	s_option
 	int				sign;
 	char			*final;
 	int				final_len;
-	int				b;
-	char			buffer[BUFF_SIZE_P];
 	int				sub_word;
 	int				fd;
 	char			*sbuffer;
 	int				flag;
+	int				b;
+	char			buffer[BUFF_SIZE_P];
 }				t_option;
 
 int				ft_printf(char *str, ...);
 int				ft_dprintf(int fd, char *str, ...);
 char			*ft_sprintf(char *str, ...);
+
+int				ft_bprintf(int last, char *str, ...);
 
 void			printf_loop(char *str, t_option *option);
 

@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 17:18:15 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 14:57:26 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/08/03 04:56:19 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,31 @@ char			*ft_sprintf(char *str, ...)
 	if (!(option.sbuffer = (char *)ft_memalloc(sizeof(char)
 							* BUFF_SIZE_P + 1)))
 		return (NULL);
-	option.flag = 1;
+	option.flag = FLAG_S;
 	va_start(option.ap, str);
 	printf_loop(str, &option);
 	va_end(option.ap);
 	return (option.sbuffer);
+}
+
+int				ft_bprintf(int last, char *str, ...)
+{
+	static t_option	option;
+
+	if (last == 1)
+	{
+		write(1, &option.buffer, option.b);
+		return (option.b);
+	}
+	option.sub_word = 0;
+	option.flag = 0;
+	if (!str)
+		return (0);
+	if (str[0] == '%' && str[1] == '\0')
+		return (0);
+	option.fd = 1;
+	va_start(option.ap, str);
+	printf_loop(str, &option);
+	va_end(option.ap);
+	return (option.len);
 }

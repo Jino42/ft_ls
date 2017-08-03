@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 04:55:33 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/30 11:33:00 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/08/03 04:54:35 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,16 @@ static int		ls_condition_print(t_env *e, t_list *l,
 	{
 		print_file_init(e, l, &size_m);
 		if (l && e->dir)
-			ft_putchar('\n');
+			ft_bprintf(0, "\n");
+//			ft_putchar('\n');
 		return (0);
 	}
 	if (e->cur_dir)
-		ft_printf("%s:\n", ((t_elem*)e->dir->content)->path);
+		ft_bprintf(0, "%s:\n", ((t_elem*)e->dir->content)->path);
 	else if (e->nb_arg > 1)
-		ft_printf("%s:\n", ((t_elem*)e->dir->content)->path);
+		ft_bprintf(0, "%s:\n", ((t_elem*)e->dir->content)->path);
 	if (e->flag & FLAG_L && e->file)
-		ft_printf("total %li\n", size_m.total_blocks);
+		ft_bprintf(0, "total %li\n", size_m.total_blocks);
 	if (((t_elem*)e->dir->content)->right)
 		ft_dprintf(2, "ls: %s: Permission denied\n",
 				&((t_elem*)e->dir->content)->path

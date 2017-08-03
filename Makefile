@@ -6,7 +6,7 @@
 #    By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 18:45:43 by ntoniolo          #+#    #+#              #
-#    Updated: 2017/06/29 11:10:01 by ntoniolo         ###   ########.fr        #
+#    Updated: 2017/08/03 03:22:02 by ntoniolo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = ft_ls
 
 DIR_LFT = libft/
 DIR_LIB = libs/
-FLAGS = -Wall -Werror -Wextra -g -I ./include/
+CFLAGS = -Wall -Werror -Wextra
+FLAGS =  -g -I ./include/
 
 SRC = main.c \
 	  ls_type_and_file_right.c \

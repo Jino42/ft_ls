@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/05 20:11:22 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/07/05 20:11:23 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/08/03 04:47:22 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		print_not_here(t_env *e)
 void		print_file(t_env *e, t_elem *elem)
 {
 	(void)e;
-	ft_printf("%s\n",
+	ft_bprintf(0, "%s\n",
 			&elem->path[elem->ind_curf]);
 }
 

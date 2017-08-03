@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/24 14:54:56 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 15:02:58 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/08/03 04:40:51 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void		padd_arg(t_option *option, int *i, char *str)
 		*i += check_flags(&str[*i], option);
 	*i += check_type(&str[*i], option);
 	option->len += option->final_len;
-	if (option->flag)
+	if (option->flag & FLAG_S)
 		ft_reallocbuffer(option);
 	else
 		ft_putbuffer(option);
@@ -85,7 +85,7 @@ void			printf_loop(char *str, t_option *option)
 		else if (str[i] != '%')
 		{
 			option->len++;
-			if (option->flag)
+			if (option->flag & FLAG_S)
 				ft_reallocbufferchar(str[i], option);
 			else
 				ft_putbufferchar(str[i], option);

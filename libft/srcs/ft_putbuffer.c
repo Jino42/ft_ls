@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:33:18 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/24 14:59:19 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/08/03 05:32:02 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	ft_putbufferchar(char c, t_option *option)
 	{
 		write(option->fd, &option->buffer, option->b);
 		option->b = 0;
-		ft_bzero(option->buffer, BUFF_SIZE_P);
 	}
 }
 
@@ -37,7 +36,6 @@ void	ft_putbuffer(t_option *option)
 		{
 			write(option->fd, &option->buffer, option->b);
 			option->b = 0;
-			ft_bzero(option->buffer, BUFF_SIZE_P);
 		}
 		i++;
 	}

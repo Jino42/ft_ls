@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 17:59:18 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/06/27 10:11:22 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/08/03 05:15:56 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	pars_file(t_env *e, int argc, char **argv, int *i)
 	{
 		if (argv[*i][0] == 0)
 		{
-			ft_dprintf(2, "./ft_ls: fts_open: No such file or directory\n");
+			ft_putstr_fd("./ft_ls: fts_open: No such file or directory\n", 2);
 			return (0);
 		}
 		ft_lstinsert_alphabet(&e->temp, ft_lstnew(argv[*i],

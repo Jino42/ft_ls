@@ -6,7 +6,7 @@
 /*   By: ntoniolo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/05 20:11:34 by ntoniolo          #+#    #+#             */
-/*   Updated: 2017/07/05 20:11:36 by ntoniolo         ###   ########.fr       */
+/*   Updated: 2017/08/03 03:40:55 by ntoniolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char		*ls_ret_time(t_elem *elem)
 static void		ls_print_l_minor_major(t_size_m *size_m,
 								t_elem *elem, char *ret_time)
 {
-	ft_printf("%*li, %*li %.*s %s",
+	ft_bprintf(0, "%*li, %*li %.*s %s",
 			size_m->major_max, ((elem->st_dev >> 24) & 0xff),
 			size_m->minor_max, (int)((elem->st_dev) & 0xff),
 			12 + size_m->years_max, ret_time + 4,
@@ -43,7 +43,7 @@ void			ls_print_l(t_env *e, t_elem *elem, t_size_m *size_m)
 
 	(void)e;
 	ret_time = ls_ret_time(elem);
-	ft_printf("%s %*li %-*s  %-*s ",
+	ft_bprintf(0, "%s %*li %-*s  %-*s ",
 			elem->mode,
 			size_m->nlink_max + 1, elem->nlink,
 			size_m->p_max, elem->p_name,
@@ -52,12 +52,13 @@ void			ls_print_l(t_env *e, t_elem *elem, t_size_m *size_m)
 		ls_print_l_minor_major(size_m, elem, ret_time);
 	else
 	{
-		ft_printf("%*li %.*s %s",
+		ft_bprintf(0, "%*li %.*s %s",
 				size_m->size_max + 1, elem->size,
 				12 + size_m->years_max, ret_time + 4,
 				&elem->path[elem->ind_curf]);
 	}
 	if (elem->mode[NUM_TYPE] == 'l')
-		ft_printf("%s", elem->r_lnk);
-	ft_putchar('\n');
+		ft_bprintf(0, "%s", elem->r_lnk);
+	ft_bprintf(0, "\n");
+//	ft_putchar('\n');
 }
